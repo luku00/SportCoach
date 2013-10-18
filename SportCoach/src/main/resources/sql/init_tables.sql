@@ -1,0 +1,25 @@
+--
+-- TABLE: addresses
+--
+create table ADDRESSES(
+    ADDRESS_ID      INTEGER NOT NULL,
+    CITY            VARCHAR(50),
+    ZIP_CODE        VARCHAR(10),
+    COUNTRY_CODE    VARCHAR(10),
+    STREET_NAME     VARCHAR(100),
+    STREET_NUMBER   VARCHAR(10),
+    ADDRESS_TYPE    VARCHAR(30),
+    PRIMARY KEY (ADDRESS_ID)
+);
+
+--
+-- TABLE: users
+--
+create table USERS(
+    USER_ID         INTEGER NOT NULL,
+    USER_ROLE       VARCHAR(20),
+    USER_LOGIN      VARCHAR(70),
+    USER_PASSWORD   VARCHAR(70),
+    ADDRESS_ID      INTEGER,
+    PRIMARY KEY (USER_ID)
+);
