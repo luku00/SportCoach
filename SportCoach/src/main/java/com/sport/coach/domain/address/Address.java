@@ -62,4 +62,7 @@ public abstract class Address {
         return id;
     }
 
+    public boolean isStreetAddress() {
+        return false;
+    }
 }

@@ -14,4 +14,5 @@
 
 
     <!--<bean id="UserService" class="com.own.mvc.mvctest.services.impl.UserServiceImpl" />-->
+    <bean id="viewMapper" class="com.sport.coach.mappers.ViewMapper" />
 </beans>

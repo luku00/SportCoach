@@ -1,7 +1,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
     <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,6 +17,7 @@
     </style>
 </head>
     <body>
+        <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 	<div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -24,12 +26,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Spring MVC</a>
+          <a class="brand" href="/SportCoach/">Sport COACH</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/mvctest/">Home</a></li>
-<!--              <li><a href="/demo/payment/create">New payment</a></li>
-              <li><a href="/demo/payment/list">Payment list</a></li>
+              <li><a href="/SportCoach/account/new/"><spring:message code="newRegistration" /></a></li>
+              <!--<li><a href="/SportCoach/newAccount/"><spring:message code="signIn" /></a></li>-->
+<!--              <li><a href="/demo/payment/list">Payment list</a></li>
               <li><a href="/demo/nsa/payments">NSA</a></li>
               <li><a href="/demo/nsa/list">NSA list</a></li>
               <li><a href="/demo/payment/problem">Problem</a></li>

@@ -39,4 +39,9 @@ public class StreetAddress extends Address {
     public String getStreetNumber() {
         return streetNumber;
     }
+
+    @Override
+    public boolean isStreetAddress() {
+        return true;
+    }
 }

@@ -29,6 +29,15 @@ public class User {
     @GenericGenerator(name="increment", strategy = "increment")
     private Integer userId;
 
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @Column(name = "EMAIL")
+    private String email;
+
     @Embedded
     private Identification userIdentification;
 
@@ -41,13 +50,6 @@ public class User {
     private Address userAddress;
 
     public User() {
-    }
-
-    public User(Integer userId, Identification userIdentification, Role role, Address userAddress) {
-        this.userId = userId;
-        this.userIdentification = userIdentification;
-        this.role = role;
-        this.userAddress = userAddress;
     }
 
     public Integer getUserId() {
@@ -64,5 +66,59 @@ public class User {
 
     public Address getUserAddress() {
         return userAddress;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public static class Builder {
+        private User user;
+
+        public Builder() {
+            this.user = new User();
+        }
+
+        public User build() {
+            return user;
+        }
+
+        public Builder withFirstName(String firstName) {
+            user.firstName = firstName;
+            return this;
+        }
+
+        public Builder withLastName(String lastName) {
+            user.lastName = lastName;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            user.email = email;
+            return this;
+        }
+
+        public Builder withIdentification(Identification identification) {
+            user.userIdentification = identification;
+            return this;
+        }
+
+        public Builder withAddress(Address address) {
+            user.userAddress = address;
+            return this;
+        }
+
+        public Builder withRole(Role role) {
+            user.role = role;
+            return this;
+        }
     }
 }
