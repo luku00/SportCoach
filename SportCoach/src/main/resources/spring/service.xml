@@ -15,4 +15,10 @@
 
     <!--<bean id="UserService" class="com.own.mvc.mvctest.services.impl.UserServiceImpl" />-->
     <bean id="viewMapper" class="com.sport.coach.mappers.ViewMapper" />
+
+    <bean id="sportCoachService" class="com.sport.coach.service.impl.SportCoachServiceImpl">
+        <property name="sportCoachDao" ref="sportCoachDao" />
+    </bean>
+
+    <bean id="sportCoachDao" class="com.sport.coach.repository.dao.SportCoachDaoImpl" />
 </beans>

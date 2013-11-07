@@ -1,5 +1,6 @@
 package com.sport.coach.repository.dao;
 
+import com.sport.coach.domain.user.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,10 @@ public class SportCoachDaoImpl implements SportCoachDao {
     protected final Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
+
+    @Override
+    public User save(User user) {
+        getCurrentSession().persist(user);
+        return user;
+    }
 }

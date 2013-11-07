@@ -8,6 +8,7 @@ package com.sport.coach.controllers;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.mappers.ViewMapper;
+import com.sport.coach.service.SportCoachService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class SportCoachAccountController {
     @Autowired
     private ViewMapper viewMapper;
 
+    @Autowired
+    private SportCoachService sportCoachService;
+
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String index() {
         return "newAccount";
@@ -32,8 +36,8 @@ public class SportCoachAccountController {
 
     @RequestMapping(value = "/new/save", method = RequestMethod.POST)
     public String save(@Valid UserView viewUser) {
-        User user = viewMapper.mapToUser(viewUser);
-        int a = 0;
+        User user = sportCoachService.save(viewMapper.mapToUser(viewUser));
+        int aa = 0;
         return null;
     }
 }
