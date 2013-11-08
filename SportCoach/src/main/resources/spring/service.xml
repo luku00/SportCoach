@@ -18,7 +18,10 @@
 
     <bean id="sportCoachService" class="com.sport.coach.service.impl.SportCoachServiceImpl">
         <property name="sportCoachDao" ref="sportCoachDao" />
+        <property name="sportCoachSecurityService" ref="sportCoachSecurityService" />
     </bean>
+
+    <bean id="sportCoachSecurityService" class="com.sport.coach.service.impl.SportCoachSecurityServiceImpl" />
 
     <bean id="sportCoachDao" class="com.sport.coach.repository.dao.SportCoachDaoImpl" />
 </beans>

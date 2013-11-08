@@ -8,4 +8,8 @@ import com.sport.coach.domain.user.User;
 public interface SportCoachDao {
 
     User save(User user);
+
+    boolean userExist(String login);
+
+    User getUser(String login);
 }

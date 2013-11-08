@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : newAccount
     Created on : Nov 6, 2013, 9:02:08 AM
     Author     : luku00
@@ -13,25 +13,65 @@
     </head>
     <body>
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="layout.jsp" />
         <form id="paymentForm" class="form-horizontal" action="save" method="post">
             <div class="control-group">
                 <label class="control-label"><spring:message code="name" /></label>
                 <div class="controls">
-                    <input type="text" name="firstName" id="firstName" maxlength="50" required="true"/>
+                    <input type="text" name="firstName" id="firstName" maxlength="50" required="true" value="${userV.firstName}" />
                 </div>
                 <label class="control-label"><spring:message code="surname" /></label>
                 <div class="controls">
-                    <input type="text" name="lastName" id="lastName" maxlength="50" required="true"/>
+                    <input type="text" name="lastName" id="lastName" maxlength="50" value="${userV.firstName}" required="true"/>
                 </div>
+                <label class="control-label"><spring:message code="email" /></label>
                 <div class="controls">
-                    <input type="text" name="login" id="login" maxlength="50" required="true"/>
+                    <input type="text" name="email" id="email" maxlength="50"  value="${userV.email}" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="streetName" /></label>
+                <div class="controls">
+                    <input type="text" name="streetName" id="streetName" maxlength="50" value="${userV.streetName}" />
+                </div>
+                <label class="control-label"><spring:message code="streetNumber" /></label>
+                <div class="controls">
+                    <input type="text" name="streetNumber" id="streetNumber" maxlength="10" value="${userV.streetNumber}" />
+                </div>
+                <label class="control-label"><spring:message code="city" /></label>
+                <div class="controls">
+                    <input type="text" name="city" id="city" maxlength="20" value="${userV.city}" />
+                </div>
+                <label class="control-label"><spring:message code="zip" /></label>
+                <div class="controls">
+                    <input type="text" name="zip" id="zip" maxlength="10" value="${userV.zip}" />
+                </div>
+                <label class="control-label"><spring:message code="country" /></label>
+                <div class="controls">
+                    <input type="text" name="country" id="country" maxlength="20" value="${userV.country}" />
+                </div>
+
+                <label class="control-label"><spring:message code="role" /></label>
+                <div class="controls">
+                    <select id="role">
+                        <c:forEach var="item" items="${roles}">
+                            <option value="${item}">${item}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <label class="control-label"><spring:message code="login" /></label>
+                <div class="controls">
+                    <input type="text" name="login" id="login" maxlength="50" required="true" title="User login ID"/>${loginExist}
+                </div>
+                <label class="control-label"><spring:message code="password" /></label>
+                <div class="controls">
+                    <input type="text" name="password" id="password" maxlength="50" required="true"/>
                 </div>
             </div>
             <div class="control-group">
                 <div class="controls">
                     </label>
-                    <button type="submit" class="btn"><spring:message code="submit" /></button> 
+                    <button type="submit" class="btn"><spring:message code="submit" /></button>
                 </div>
             </div>
         </form>

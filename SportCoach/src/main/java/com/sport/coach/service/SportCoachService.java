@@ -11,4 +11,8 @@ import com.sport.coach.domain.user.User;
 public interface SportCoachService {
 
     User save(User user);
+
+    boolean checkIfLoginExists(String login);
+
+    User authenticateUser(User user);
 }

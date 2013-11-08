@@ -1,6 +1,8 @@
 package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.user.User;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,27 @@ public class SportCoachDaoImpl implements SportCoachDao {
     public User save(User user) {
         getCurrentSession().persist(user);
         return user;
+    }
+
+    @Override
+    public boolean userExist(String login) {
+        Query query = getCurrentSession().getNamedQuery("User.findUserByLoging");
+        query.setParameter("login", login);
+        if (query.list().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public User getUser(String login) {
+        Query query = getCurrentSession().getNamedQuery("User.findUserByLoging");
+        query.setParameter("login", login);
+        List result = query.list();
+        if (result.isEmpty() || result.size() > 1) {
+            return null;
+        }
+
+        return (User)result.iterator().next();
     }
 }

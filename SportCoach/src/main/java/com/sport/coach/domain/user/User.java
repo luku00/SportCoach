@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,6 +21,9 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
+@NamedQueries({
+    @NamedQuery(name = "User.findUserByLoging", query = "select u from User u where userIdentification.userLogin = :login"),
+})
 @Entity
 @Table(name = "USERS")
 public class User {
