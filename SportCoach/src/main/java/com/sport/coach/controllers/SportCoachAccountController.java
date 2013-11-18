@@ -39,7 +39,8 @@ public class SportCoachAccountController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView index() {
-        return new ModelAndView("newAccount", "roles", createListOfRoles());
+        ModelAndView model = new ModelAndView("newAccount", "roles", createListOfRoles());
+        return model;
     }
 
     @RequestMapping(value = "/new/save", method = RequestMethod.POST)

@@ -1,15 +1,19 @@
 package com.sport.coach.domain.user;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
-@Embeddable
+@Entity
+@Table(name = "USERS_IDENTIFICATION")
 public class Identification {
 
+    @Id
     @Column(name = "USER_LOGIN")
     private String userLogin;
 

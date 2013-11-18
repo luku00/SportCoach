@@ -1,28 +1,54 @@
 package com.sport.coach.repository;
 
+import com.sport.coach.domain.user.Role;
+import com.sport.coach.domain.user.User;
+import com.sport.coach.factory.ObjectFactory;
 import com.sport.coach.repository.dao.SportCoachDao;
-import com.sport.coach.repository.dao.SportCoachDaoImpl;
+import com.sport.coach.test.helpers.CommonAssertions;
 import static org.junit.Assert.*;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.hibernate.SessionFactory;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
-@ContextConfiguration(locations = {"classpath:est.xml"})
+@ContextConfiguration(locations = {"classpath:spring/service.xml", "classpath:test.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class RepositoryTest {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private SportCoachDao dao;
 
+    @Before
+    public void setUp() {
+
+    }
+
+    @Test
     public void initTest() {
-        SportCoachDao sc = new SportCoachDaoImpl();
-        int a = 0;
-        //assertNotNull(sessionFactory);
+        assertNotNull(dao);
+    }
+
+    @Test
+    public void storeAndGetUser() {
+        User user = ObjectFactory.createNewUser(Role.REQUESTOR);
+        User storedUser = dao.save(user);
+        CommonAssertions.assertEqualUsers(user, storedUser);
+
+        // get stored user
+        User persistedUser = dao.getUser(storedUser.getUserIdentification().getUserLogin());
+        CommonAssertions.assertEqualUsers(storedUser, persistedUser);
+    }
+
+    @Test
+    public void userExist() {
+        User user = dao.save(ObjectFactory.createSpecificUser(Role.REQUESTOR, "loto"));
+        assertTrue(dao.userExist(user.getUserIdentification().getUserLogin()));
+        assertFalse(dao.userExist("newLogin"));
     }
 }

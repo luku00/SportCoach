@@ -1,0 +1,12 @@
+@startuml
+(*) --> "Initialisation"
+--> "Hash password"
+if "verify login and password" then
+    note right: this should be done on sql level \nto prevent load user data
+    -->[true] "Load domain data"
+    -->[true] "Save to session"
+    -> (*)
+else
+    -->[false] (*)
+endif
+@enduml

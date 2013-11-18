@@ -1,0 +1,12 @@
+@startuml
+(*) --> "Initialisation"
+if "login not exist" then
+    note right: Check on DAO level
+    -->[true] "Hash password"
+    --> "map to domain"
+    --> "save (DAO)"
+    -> (*)
+else
+    -->[false] (*)
+Endif
+@enduml

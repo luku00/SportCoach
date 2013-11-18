@@ -53,4 +53,12 @@ public class SportCoachDaoImpl implements SportCoachDao {
 
         return (User)result.iterator().next();
     }
+
+    /**
+     * Only for test purposes
+     */
+    @Deprecated
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

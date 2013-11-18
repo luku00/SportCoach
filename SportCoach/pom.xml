@@ -255,7 +255,7 @@
                     <classpathDependencyExcludes>
                         <!--
                             SLF4J bindings exluded in case there were brought transitively by some dependencies.
-                            This setup avoids heavy logging during unit testing. 
+                            This setup avoids heavy logging during unit testing.
                          -->
                         <classpathDependencyExclude>org.slf4j:slf4j-jdk14</classpathDependencyExclude>
                         <classpathDependencyExclude>ch.qos.logback:logback-classic</classpathDependencyExclude>
