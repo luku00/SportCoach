@@ -20,6 +20,9 @@ public class UserView {
     private String country;
     private String streetName;
     private String streetNumber;
+    private String birthDay;
+    private String birthMonth;
+    private String birthYear;
 
     public String getFirstName() {
         return firstName;
@@ -107,6 +110,30 @@ public class UserView {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
     }
 
 

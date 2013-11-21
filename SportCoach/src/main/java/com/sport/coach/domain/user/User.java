@@ -16,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -55,6 +57,10 @@ public class User {
     @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ADDRESS_ID")
     private Address userAddress;
 
+    @Column(name="BIRTH_DATE")
+    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    private DateTime birthDate;
+
     public User() {
     }
 
@@ -84,6 +90,10 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public DateTime getBirthDate() {
+        return birthDate;
     }
 
     public static class Builder {
@@ -124,6 +134,11 @@ public class User {
 
         public Builder withRole(Role role) {
             user.role = role;
+            return this;
+        }
+
+        public Builder withBirthDate(DateTime BirthDate) {
+            user.birthDate = BirthDate;
             return this;
         }
     }

@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Demo</title>
-    <link href="/mvctest/resources/css/bootstrap.css" rel="stylesheet">
-    <link href="/mvctest/resources/css/bootstrap-responsive.css" rel="stylesheet">
-    <script type="text/javascript" src="/mvctest/resources/js/jquery-1.8.3.min.js"></script>
+    <link href="/SportCoach/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="/SportCoach/resources/css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="/SportCoach/resources/js/jquery-1.8.3.min.js"></script>
     <style>
       body {
         padding-top: 60px;

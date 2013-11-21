@@ -9,6 +9,9 @@ import com.sport.coach.domain.user.Identification;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserView;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -23,7 +26,13 @@ public class ViewMapper {
                 .withRole(mapToRole(userView.getUserRole()))
                 .withAddress(mapToAddress(userView))
                 .withIdentification(mapToIdentification(userView))
+                .withBirthDate(mapToDate(userView.getBirthDay(), userView.getBirthMonth(), userView.getBirthYear()))
                 .build();
+    }
+
+    private DateTime mapToDate(String day, String month, String year) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+        return formatter.parseDateTime(day + "/" + month + "/" + year);
     }
 
     private Identification mapToIdentification(UserView userView) {

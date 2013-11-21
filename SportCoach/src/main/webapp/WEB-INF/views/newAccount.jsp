@@ -23,36 +23,65 @@
                 </div>
                 <label class="control-label"><spring:message code="surname" /></label>
                 <div class="controls">
-                    <input type="text" name="lastName" id="lastName" maxlength="50" value="${userV.firstName}" required="true"/>
+                    <input type="text" name="lastName" id="lastName" maxlength="50" value="${userV.lastName}" required="true"/>
                 </div>
+
+                    <label class="control-label"><spring:message code="birthdate" /></label>
+                    <div class="controls">
+                        <div style="float: left">
+                            <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="day" /> </label>
+                            <select id="birthDay" name="birthDay" style="width: 60px" >
+                                <c:forEach var="item" items="${days}">
+                                    <option value="${item}">${item}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div style="float: left">
+                            <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="month" /> </label>
+                            <select id="birthMonth" name="birthMonth" style="width: 60px">
+                                <c:forEach var="item" items="${months}">
+                                    <option value="${item}">${item}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="year" /> </label>
+                            <select id="birthYear" name="birthYear" style="width: 100px">
+                                <c:forEach var="item" items="${years}">
+                                    <option value="${item}">${item}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
                 <label class="control-label"><spring:message code="email" /></label>
                 <div class="controls">
                     <input type="text" name="email" id="email" maxlength="50"  value="${userV.email}" required="true"/>
                 </div>
                 <label class="control-label"><spring:message code="streetName" /></label>
                 <div class="controls">
-                    <input type="text" name="streetName" id="streetName" maxlength="50" value="${userV.streetName}" />
+                    <input type="text" name="streetName" id="streetName" maxlength="50" value="${userV.streetName}" required="true"/>
                 </div>
                 <label class="control-label"><spring:message code="streetNumber" /></label>
                 <div class="controls">
-                    <input type="text" name="streetNumber" id="streetNumber" maxlength="10" value="${userV.streetNumber}" />
+                    <input type="text" name="streetNumber" id="streetNumber" maxlength="10" value="${userV.streetNumber}" required="true"/>
                 </div>
                 <label class="control-label"><spring:message code="city" /></label>
                 <div class="controls">
-                    <input type="text" name="city" id="city" maxlength="20" value="${userV.city}" />
+                    <input type="text" name="city" id="city" maxlength="20" value="${userV.city}" required="true"/>
                 </div>
                 <label class="control-label"><spring:message code="zip" /></label>
                 <div class="controls">
-                    <input type="text" name="zip" id="zip" maxlength="10" value="${userV.zip}" />
+                    <input type="text" name="zip" id="zip" maxlength="10" value="${userV.zip}" required="true"/>
                 </div>
                 <label class="control-label"><spring:message code="country" /></label>
                 <div class="controls">
-                    <input type="text" name="country" id="country" maxlength="20" value="${userV.country}" />
+                    <input type="text" name="country" id="country" maxlength="20" value="${userV.country}" required="true"/>
                 </div>
 
                 <label class="control-label"><spring:message code="role" /></label>
                 <div class="controls">
-                    <select id="role">
+                    <select id="userRole" name="userRole">
                         <c:forEach var="item" items="${roles}">
                             <option value="${item}">${item}</option>
                         </c:forEach>
