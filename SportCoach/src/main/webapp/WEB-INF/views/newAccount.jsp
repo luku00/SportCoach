@@ -10,6 +10,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New user account</title>
+        <script type="text/javascript">
+    function validate() {
+        var email = document.getElementById("email").value;
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (emailPattern.test(email)) {
+            alert("Email Id: " + email);
+            return true;
+        } else {
+            alert("Email Id is not valid!");
+            return false;
+        }
+    }
+</script>
+
     </head>
     <body>
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -100,7 +114,7 @@
             <div class="control-group">
                 <div class="controls">
                     </label>
-                    <button type="submit" class="btn"><spring:message code="submit" /></button>
+                    <button type="submit" class="btn" onclick="validate();"><spring:message code="submit" /></button>
                 </div>
             </div>
         </form>

@@ -30,7 +30,7 @@ public class ViewMapper {
                 .build();
     }
 
-    private DateTime mapToDate(String day, String month, String year) {
+    public DateTime mapToDate(String day, String month, String year) {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
         return formatter.parseDateTime(day + "/" + month + "/" + year);
     }

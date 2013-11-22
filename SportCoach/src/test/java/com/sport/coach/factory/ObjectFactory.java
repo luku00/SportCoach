@@ -10,7 +10,7 @@ import com.sport.coach.domain.user.User;
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
-public class ObjectFactory {
+public class ObjectFactory extends CommonObjectFactory {
 
     public static final String FIRST_NAME = "Lukas";
     public static final String LAST_NAME = "Kubicek";
@@ -34,6 +34,7 @@ public class ObjectFactory {
                 .withAddress(createAddress())
                 .withIdentification(createUserIdentification(login, USER_PASSWORD))
                 .withEmail(USER_EMAIL)
+                .withBirthDate(createDateTime(BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR))
                 .build();
     }
 

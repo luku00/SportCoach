@@ -10,7 +10,7 @@ import com.sport.coach.domain.view.UserView;
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
-public class ViewDataFactory {
+public class ViewDataFactory extends CommonObjectFactory {
 
     public static UserView createViewUser(boolean skipNotRequiredFields, Role role) {
         UserView userView = new UserView();
@@ -20,6 +20,9 @@ public class ViewDataFactory {
         userView.setLogin("luku");
         userView.setPassword("dgsfds");
         userView.setUserRole(role.name());
+        userView.setBirthDay(BIRTH_DAY);
+        userView.setBirthMonth(BIRTH_MONTH);
+        userView.setBirthYear(BIRTH_YEAR);
         if (!skipNotRequiredFields) {
             userView.setStreetName("Ostravska");
             userView.setCity("Ostrava");

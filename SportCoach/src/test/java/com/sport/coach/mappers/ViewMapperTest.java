@@ -43,6 +43,9 @@ public class ViewMapperTest {
         StreetAddress address = (StreetAddress)user.getUserAddress();
         assertEquals(view.getStreetName(), address.getStreetName());
         assertEquals(view.getStreetNumber(), address.getStreetNumber());
+        assertEquals(view.getBirthDay(), String.valueOf(user.getBirthDate().getDayOfMonth()));
+        assertEquals(view.getBirthMonth(), String.valueOf(user.getBirthDate().getMonthOfYear()));
+        assertEquals(view.getBirthYear(), String.valueOf(user.getBirthDate().getYear()));
     }
 
     @Test
@@ -64,4 +67,8 @@ public class ViewMapperTest {
         assertNull(address.getStreetNumber());
     }
 
+    @Test
+    public void matToDate() {
+
+    }
 }

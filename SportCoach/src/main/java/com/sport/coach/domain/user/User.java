@@ -58,7 +58,7 @@ public class User {
     private Address userAddress;
 
     @Column(name="BIRTH_DATE")
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime birthDate;
 
     public User() {

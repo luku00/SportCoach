@@ -6,7 +6,6 @@ package com.sport.coach.domain.user;
  */
 public enum Role {
 
-    ADMIN,
     BASIC_USER,
     REQUESTOR;
 
