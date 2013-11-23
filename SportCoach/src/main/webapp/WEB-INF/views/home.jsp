@@ -7,6 +7,7 @@
     </head>
     <body>
         <jsp:include page="layout.jsp" />
+        ${userInfo.firstName} ${userInfo.lastName}
         <!--        <form id="paymentForm" class="form-horizontal" action="save" method="post">
                     <div class="control-group">
                             <label class="control-label" for="firstName">First name</label>

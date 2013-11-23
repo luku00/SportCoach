@@ -8,6 +8,7 @@ import com.sport.coach.domain.address.StreetAddress;
 import com.sport.coach.domain.user.Identification;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -18,6 +19,14 @@ import org.joda.time.format.DateTimeFormatter;
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
 public class ViewMapper {
+
+    public UserInfo mapUserToUserInfo(User user) {
+        return new UserInfo.Builder()
+                .withFirstName(user.getFirstName())
+                .withLastName(user.getLastName())
+                .withLogin(user.getUserIdentification().getUserLogin())
+                .build();
+    }
 
     public User mapToUser(UserView userView) {
         return new User.Builder().withFirstName(userView.getFirstName())

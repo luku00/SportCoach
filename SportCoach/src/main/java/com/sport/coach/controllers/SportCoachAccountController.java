@@ -7,6 +7,7 @@ package com.sport.coach.controllers;
 
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.domain.view.ViewParams;
 import com.sport.coach.mappers.ViewMapper;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.joda.time.LocalDate;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
@@ -28,11 +30,14 @@ import org.joda.time.LocalDate;
  */
 @Controller
 @RequestMapping("/account")
+@SessionAttributes("userInfo")
 public class SportCoachAccountController {
 
     private static final int DAYS_IN_MONTH = 31;
     private static final int MONTHS_IN_YEAR = 12;
     private static final int YEARS = 50;
+
+    private UserInfo userInfo;
 
     @Autowired
     private ViewMapper viewMapper;
@@ -53,23 +58,41 @@ public class SportCoachAccountController {
     @RequestMapping(value = "/new/save", method = RequestMethod.POST)
     public ModelAndView save(@Valid UserView viewUser) {
         ModelAndView model = new ModelAndView();
-        model.setViewName("newAccount");
         model.getModel().put(ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
-
+        model.setViewName("newAccount");
         if (sportCoachService.checkIfLoginExists(viewUser.getLogin())) {
-            model.getModel().put(ViewParams.NEW_ACCOUNT_EXISTING_LOGIN, "Login exists");
+            model.getModel().put(ViewParams.NEW_ACCOUNT_EXISTING_LOGIN, "loginExist");
             model.getModel().put(ViewParams.NEW_ACCOUNT_USER_VIEW, viewUser);
+
         } else {
             viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
             User user = sportCoachService.save(viewMapper.mapToUser(viewUser));
+            model.getModel().put(ViewParams.NEW_ACCOUNT_USER_CREATED, "userCreated");
         }
 
         return model;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String authenticate(@Valid UserView viewUser) {
-        return null;
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView authenticate(@Valid UserView viewUser) {
+        ModelAndView model = new ModelAndView();
+        viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
+        User authenticatedUser = sportCoachService.authenticateUser(viewUser.getLogin(), viewUser.getPassword());
+        if (authenticatedUser == null) {
+            model.setViewName("login");
+            model.getModel().put(ViewParams.LOGIN_ERROR, "Login or passord incorrect");
+            model.getModel().put("test", "test");
+        } else {
+            model.setViewName("home");
+            model.addObject("userInfo", viewMapper.mapUserToUserInfo(authenticatedUser));
+        }
+
+        return model;
     }
 
     private List<String> createListOfRoles() {

@@ -10,6 +10,7 @@
     <link href="/SportCoach/resources/css/bootstrap.css" rel="stylesheet">
     <link href="/SportCoach/resources/css/bootstrap-responsive.css" rel="stylesheet">
     <script type="text/javascript" src="/SportCoach/resources/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/SportCoach/resources/js/common.js"></script>
     <style>
       body {
         padding-top: 60px;
@@ -30,7 +31,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="/SportCoach/account/new/"><spring:message code="newRegistration" /></a></li>
-              <!--<li><a href="/SportCoach/newAccount/"><spring:message code="signIn" /></a></li>-->
+              <li><a href="/SportCoach/account/login/"><spring:message code="signIn" /></a></li>
 <!--              <li><a href="/demo/payment/list">Payment list</a></li>
               <li><a href="/demo/nsa/payments">NSA</a></li>
               <li><a href="/demo/nsa/list">NSA list</a></li>

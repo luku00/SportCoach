@@ -61,4 +61,19 @@ public class SportCoachDaoImpl implements SportCoachDao {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
+
+    @Override
+    public User autehenticateUser(String login, String password) {
+        Query query = getCurrentSession().getNamedQuery("User.authenticate");
+        query.setParameter("login", login);
+        query.setParameter("password", password);
+        List result = query.list();
+        if (result.isEmpty() || result.size() > 1) {
+            return null;
+        }
+
+        User user = (User)result.iterator().next();
+        user.getUserIdentification().secure();;
+        return user;
+    }
 }

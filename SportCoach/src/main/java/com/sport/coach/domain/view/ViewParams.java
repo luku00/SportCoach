@@ -15,4 +15,7 @@ public class ViewParams {
     public static final String NEW_ACCOUNT_YEARS = "years";
     public static final String NEW_ACCOUNT_EXISTING_LOGIN = "loginExist";
     public static final String NEW_ACCOUNT_USER_VIEW = "userV";
+    public static final String NEW_ACCOUNT_USER_CREATED = "userCreated";
+
+    public static final String LOGIN_ERROR = "loginError";
 }

@@ -51,4 +51,17 @@ public class RepositoryTest {
         assertTrue(dao.userExist(user.getUserIdentification().getUserLogin()));
         assertFalse(dao.userExist("newLogin"));
     }
+
+    @Test
+    public void authenticateUser() {
+        String login = "losos";
+        User user = dao.save(ObjectFactory.createSpecificUser(Role.REQUESTOR, login));
+        User authenticatedUser = dao.autehenticateUser(login, user.getUserIdentification().getUserPassword());
+
+        // assertions
+        assertEquals(user.getEmail(), authenticatedUser.getEmail());
+        assertEquals(user.getFirstName(), authenticatedUser.getFirstName());
+        assertEquals(user.getLastName(), authenticatedUser.getLastName());
+        assertNull(authenticatedUser.getUserIdentification().getUserPassword());
+    }
 }

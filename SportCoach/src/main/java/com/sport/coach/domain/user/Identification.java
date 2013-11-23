@@ -36,4 +36,7 @@ public class Identification {
         return userPassword;
     }
 
+    public void secure() {
+        this.userPassword = null;
+    }
 }

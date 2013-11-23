@@ -37,8 +37,8 @@ public class SportCoachServiceImpl implements SportCoachService {
     }
 
     @Override
-    public User authenticateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public User authenticateUser(String login, String password) {
+        return sportCoachDao.autehenticateUser(login, password);
     }
 
 }

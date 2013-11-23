@@ -10,26 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New user account</title>
-        <script type="text/javascript">
-    function validate() {
-        var email = document.getElementById("email").value;
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (emailPattern.test(email)) {
-            alert("Email Id: " + email);
-            return true;
-        } else {
-            alert("Email Id is not valid!");
-            return false;
-        }
-    }
-</script>
-
     </head>
     <body>
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="layout.jsp" />
-        <form id="paymentForm" class="form-horizontal" action="save" method="post">
+        <label class="control-label"><spring:message code="${userCreated}" /></label>
+        <form id="newAccountForm" class="form-horizontal" action="save" method="post" onsubmit="return validateNewAccount();">
             <div class="control-group">
                 <label class="control-label"><spring:message code="name" /></label>
                 <div class="controls">
@@ -101,20 +88,24 @@
                         </c:forEach>
                     </select>
                 </div>
-
                 <label class="control-label"><spring:message code="login" /></label>
                 <div class="controls">
-                    <input type="text" name="login" id="login" maxlength="50" required="true" title="User login ID"/>${loginExist}
+                    <input type="text" name="login" id="login" maxlength="50" required="true" title="User login ID"/>
+                    <label class="control-label"><spring:message code="${loginExist}" /></label>
                 </div>
                 <label class="control-label"><spring:message code="password" /></label>
                 <div class="controls">
                     <input type="text" name="password" id="password" maxlength="50" required="true"/>
                 </div>
+                <label class="control-label"><spring:message code="password" /></label>
+                <div class="controls">
+                    <input type="text" name="password1" id="password1" maxlength="50" required="true"/>
+                </div>
             </div>
             <div class="control-group">
                 <div class="controls">
                     </label>
-                    <button type="submit" class="btn" onclick="validate();"><spring:message code="submit" /></button>
+                    <button type="submit" class="btn"><spring:message code="submit" /></button>
                 </div>
             </div>
         </form>
