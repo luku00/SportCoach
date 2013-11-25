@@ -1,14 +1,22 @@
 package com.sport.coach.domain.view;
 
+import java.io.Serializable;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+
 /**
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
-public class UserInfo {
+@Component
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
+public class UserInfo implements Serializable {
 
     private String login;
     private String firstName;
     private String lastName;
+    private boolean isLogged;
 
     public String getFirstName() {
         return firstName;
@@ -34,6 +42,14 @@ public class UserInfo {
         this.login = login;
     }
 
+    public boolean isIsLogged() {
+        return isLogged;
+    }
+
+    public void setIsLogged(boolean isLogged) {
+        this.isLogged = isLogged;
+    }
+
     public static class Builder {
         private UserInfo userInfo;
 
@@ -57,6 +73,11 @@ public class UserInfo {
 
         public Builder withLogin(String login) {
             userInfo.login = login;
+            return this;
+        }
+
+        public Builder withIsLogged(boolean isLogged) {
+            userInfo.isLogged = isLogged;
             return this;
         }
     }

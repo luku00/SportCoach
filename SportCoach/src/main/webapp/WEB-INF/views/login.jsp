@@ -23,7 +23,7 @@
                 </div>
                 <label class="control-label"><spring:message code="password" /></label>
                 <div class="controls">
-                    <input type="text" name="password" id="password" maxlength="50" required="true"/>
+                    <input type="password" name="password" id="password" maxlength="50" required="true"/>
                 </div>
             </div>
             <label class="control-label"><spring:message code="${loginError}" /></label>

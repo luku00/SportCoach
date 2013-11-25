@@ -20,11 +20,12 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class ViewMapper {
 
-    public UserInfo mapUserToUserInfo(User user) {
+    public UserInfo mapUserToUserInfo(User user, boolean isLogged) {
         return new UserInfo.Builder()
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
                 .withLogin(user.getUserIdentification().getUserLogin())
+                .withIsLogged(isLogged)
                 .build();
     }
 

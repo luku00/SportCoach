@@ -17,7 +17,7 @@
       }
     </style>
 </head>
-    <body>
+<body>
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 	<div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -30,8 +30,9 @@
           <a class="brand" href="/SportCoach/">Sport COACH</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="/SportCoach/account/new/"><spring:message code="newRegistration" /></a></li>
+                <li><a href="/SportCoach/account/new/"><spring:message code="newRegistration" /></a></li>
               <li><a href="/SportCoach/account/login/"><spring:message code="signIn" /></a></li>
+              <li></li>
 <!--              <li><a href="/demo/payment/list">Payment list</a></li>
               <li><a href="/demo/nsa/payments">NSA</a></li>
               <li><a href="/demo/nsa/list">NSA list</a></li>

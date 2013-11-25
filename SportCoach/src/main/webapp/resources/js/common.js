@@ -25,4 +25,3 @@ function validatePasswordMatch() {
         return false;
     }
 }
-

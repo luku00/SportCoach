@@ -37,6 +37,7 @@ public class SportCoachAccountController {
     private static final int MONTHS_IN_YEAR = 12;
     private static final int YEARS = 50;
 
+    @Autowired
     private UserInfo userInfo;
 
     @Autowired
@@ -52,6 +53,7 @@ public class SportCoachAccountController {
     public ModelAndView index() {
         ModelAndView model = new ModelAndView("newAccount", ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
         loadDefaultNewAccountParams(model);
+        model.addObject("userInfo", userInfo);
         return model;
     }
 
@@ -85,11 +87,10 @@ public class SportCoachAccountController {
         User authenticatedUser = sportCoachService.authenticateUser(viewUser.getLogin(), viewUser.getPassword());
         if (authenticatedUser == null) {
             model.setViewName("login");
-            model.getModel().put(ViewParams.LOGIN_ERROR, "Login or passord incorrect");
-            model.getModel().put("test", "test");
+            model.getModel().put(ViewParams.LOGIN_ERROR, "loginError");
         } else {
             model.setViewName("home");
-            model.addObject("userInfo", viewMapper.mapUserToUserInfo(authenticatedUser));
+            model.addObject("userInfo", viewMapper.mapUserToUserInfo(authenticatedUser, true));
         }
 
         return model;
