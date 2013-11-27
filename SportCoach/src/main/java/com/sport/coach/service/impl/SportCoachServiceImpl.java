@@ -7,6 +7,7 @@ import com.sport.coach.domain.user.User;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -41,4 +42,16 @@ public class SportCoachServiceImpl implements SportCoachService {
         return sportCoachDao.autehenticateUser(login, password);
     }
 
+    @Override
+    public User getUser(String login) {
+        return sportCoachDao.getUser(login);
+    }
+
+    @Override
+    @Transactional
+    public User updateUserData(User user, String login) {
+        User storedUser = sportCoachDao.getUser(login);
+        storedUser.setNewUserData(user);
+        return storedUser;
+    }
 }

@@ -46,6 +46,14 @@ public abstract class Address {
         this.countryCode = countryCode;
     }
 
+    public void updateAddress(String city, String zipCode, String countryCode) {
+        this.city = city;
+        this.zipCode = zipCode;
+        this.countryCode = countryCode;
+    }
+
+    public abstract void updateStreetAddress(StreetAddress address);
+
     public String getCity() {
         return city;
     }

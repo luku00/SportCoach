@@ -32,6 +32,12 @@ public class StreetAddress extends Address {
         this.streetNumber = streetNumber;
     }
 
+    public void updateStreetAddress(StreetAddress address) {
+        this.streetName = address.getStreetName();
+        this.streetNumber = address.getStreetNumber();
+        updateAddress(address.getCity(), address.getZipCode(), address.getCountryCode());
+    }
+
     public String getStreetName() {
         return streetName;
     }

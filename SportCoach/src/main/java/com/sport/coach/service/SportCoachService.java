@@ -15,4 +15,8 @@ public interface SportCoachService {
     boolean checkIfLoginExists(String login);
 
     User authenticateUser(String login, String password);
+
+    User getUser(String login);
+
+    User updateUserData(User user, String login);
 }

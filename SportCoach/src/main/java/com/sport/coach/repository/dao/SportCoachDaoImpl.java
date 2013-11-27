@@ -76,4 +76,9 @@ public class SportCoachDaoImpl implements SportCoachDao {
         user.getUserIdentification().secure();;
         return user;
     }
+
+    @Override
+    public void updateUser(User user) {
+        getCurrentSession().update(user);
+    }
 }

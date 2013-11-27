@@ -10,6 +10,7 @@ import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.domain.view.ViewParams;
+import com.sport.coach.error.ClientServerException;
 import com.sport.coach.mappers.ViewMapper;
 import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
@@ -30,12 +31,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 @RequestMapping("/account")
-@SessionAttributes("userInfo")
+@SessionAttributes({"userData", "userInfo"})
 public class SportCoachAccountController {
 
     private static final int DAYS_IN_MONTH = 31;
     private static final int MONTHS_IN_YEAR = 12;
     private static final int YEARS = 50;
+
+    @Autowired
+    private UserView userView;
 
     @Autowired
     private UserInfo userInfo;
@@ -53,7 +57,6 @@ public class SportCoachAccountController {
     public ModelAndView index() {
         ModelAndView model = new ModelAndView("newAccount", ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
         loadDefaultNewAccountParams(model);
-        model.addObject("userInfo", userInfo);
         return model;
     }
 
@@ -80,6 +83,23 @@ public class SportCoachAccountController {
         return "login";
     }
 
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public ModelAndView adminOwnAccount() throws ClientServerException {
+        ModelAndView model = new ModelAndView("adminAccount");
+        userView = viewMapper.mapToUserView(sportCoachService.getUser(userInfo.getLogin()), userView);
+        model.addObject("userData", userView);
+        return model;
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public ModelAndView changeAccountData(@Valid UserView viewUser) throws ClientServerException {
+        ModelAndView model = new ModelAndView("home");
+        User updatedUser = sportCoachService.updateUserData(viewMapper.mapToUser(viewUser), userInfo.getLogin());
+        userInfo = viewMapper.mapUserToUserInfo(updatedUser);
+        model.addObject("userInfo", userInfo);
+        return model;
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView authenticate(@Valid UserView viewUser) {
         ModelAndView model = new ModelAndView();
@@ -90,7 +110,8 @@ public class SportCoachAccountController {
             model.getModel().put(ViewParams.LOGIN_ERROR, "loginError");
         } else {
             model.setViewName("home");
-            model.addObject("userInfo", viewMapper.mapUserToUserInfo(authenticatedUser, true));
+            userInfo = viewMapper.mapUserToUserInfo(authenticatedUser);
+            model.addObject("userInfo", userInfo);
         }
 
         return model;

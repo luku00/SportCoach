@@ -4,6 +4,7 @@ import static javax.persistence.EnumType.*;
 import static javax.persistence.CascadeType.*;
 
 import com.sport.coach.domain.address.Address;
+import com.sport.coach.domain.address.StreetAddress;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -46,7 +47,7 @@ public class User {
     @Column(name = "EMAIL")
     private String email;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = ALL)
     @JoinColumn(name="USER_LOGIN")
     private Identification userIdentification;
 
@@ -95,6 +96,13 @@ public class User {
 
     public DateTime getBirthDate() {
         return birthDate;
+    }
+
+    public void setNewUserData(User updatedUser) {
+        this.firstName = updatedUser.getFirstName();
+        this.lastName = updatedUser.getLastName();
+        this.email = updatedUser.getEmail();
+        this.userAddress.updateStreetAddress((StreetAddress) updatedUser.getUserAddress());
     }
 
     public static class Builder {

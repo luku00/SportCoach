@@ -10,13 +10,12 @@ import org.springframework.context.annotation.ScopedProxyMode;
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
 @Component
-@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserInfo implements Serializable {
 
     private String login;
     private String firstName;
     private String lastName;
-    private boolean isLogged;
 
     public String getFirstName() {
         return firstName;
@@ -42,14 +41,6 @@ public class UserInfo implements Serializable {
         this.login = login;
     }
 
-    public boolean isIsLogged() {
-        return isLogged;
-    }
-
-    public void setIsLogged(boolean isLogged) {
-        this.isLogged = isLogged;
-    }
-
     public static class Builder {
         private UserInfo userInfo;
 
@@ -73,11 +64,6 @@ public class UserInfo implements Serializable {
 
         public Builder withLogin(String login) {
             userInfo.login = login;
-            return this;
-        }
-
-        public Builder withIsLogged(boolean isLogged) {
-            userInfo.isLogged = isLogged;
             return this;
         }
     }

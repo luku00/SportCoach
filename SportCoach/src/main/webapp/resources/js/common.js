@@ -25,3 +25,14 @@ function validatePasswordMatch() {
         return false;
     }
 }
+
+function changeAccount() {
+    document.getElementById("firstName").disabled = false;
+    document.getElementById("lastName").disabled = false;
+    document.getElementById("email").disabled = false;
+    document.getElementById("streetName").disabled = false;
+    document.getElementById("streetNumber").disabled = false;
+    document.getElementById("city").disabled = false;
+    document.getElementById("zip").disabled = false;
+    document.getElementById("country").disabled = false;
+}

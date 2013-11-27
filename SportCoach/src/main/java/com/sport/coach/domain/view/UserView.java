@@ -3,11 +3,18 @@
  **************************************************************************************************/
 package com.sport.coach.domain.view;
 
+import java.io.Serializable;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
-public class UserView {
+@Component
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class UserView implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -136,5 +143,86 @@ public class UserView {
         this.birthYear = birthYear;
     }
 
+    public String getBirtDateAsString() {
+        return birthDay + "-" + birthMonth + "-" + birthYear;
+    }
+
+    public static class Builder {
+
+        private UserView userView;
+
+        public Builder() {
+            this.userView = new UserView();
+        }
+
+        public UserView build() {
+            return this.userView;
+        }
+
+        public Builder withFirstName(String firstName) {
+            userView.firstName = firstName;
+            return this;
+        }
+
+        public Builder withLastName(String lastName) {
+            userView.lastName = lastName;
+            return this;
+        }
+
+        public Builder withLogin(String login) {
+            userView.login = login;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            userView.email = email;
+            return this;
+        }
+
+        public Builder withUserRole(String userRole) {
+            userView.userRole = userRole;
+            return this;
+        }
+
+        public Builder withCity(String city) {
+            userView.city = city;
+            return this;
+        }
+
+        public Builder withZip(String zip) {
+            userView.zip = zip;
+            return this;
+        }
+
+        public Builder withCountry(String country) {
+            userView.country = country;
+            return this;
+        }
+
+        public Builder withStreetNumber(String streetNumber) {
+            userView.streetNumber = streetNumber;
+            return this;
+        }
+
+        public Builder withStreetName(String streetName) {
+            userView.streetName = streetName;
+            return this;
+        }
+
+        public Builder withBirthDay(String birthDay) {
+            userView.birthDay = birthDay;
+            return this;
+        }
+
+        public Builder withBirthMonth(String birthMonth) {
+            userView.birthMonth = birthMonth;
+            return this;
+        }
+
+        public Builder withBirthYear(String birthYear) {
+            userView.birthYear = birthYear;
+            return this;
+        }
+    }
 
 }

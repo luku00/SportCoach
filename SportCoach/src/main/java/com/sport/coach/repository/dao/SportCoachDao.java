@@ -39,4 +39,11 @@ public interface SportCoachDao {
      * @return
      */
     User autehenticateUser(String login, String password);
+
+    /**
+     * will only update user data
+     *
+     * @param user
+     */
+    void updateUser(User user);
 }
