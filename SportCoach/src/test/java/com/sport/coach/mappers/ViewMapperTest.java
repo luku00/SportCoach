@@ -10,6 +10,8 @@ import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.factory.ViewDataFactory;
+import java.text.ParseException;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +21,10 @@ import org.junit.Test;
  */
 public class ViewMapperTest {
 
+    private static final String DAY = "1";
+    private static final String MONTH = "5";
+    private static final String YEAR = "1999";
+
     private ViewMapper viewMapper;
 
     @Before
@@ -27,7 +33,7 @@ public class ViewMapperTest {
     }
 
     @Test
-    public void mapToUser() {
+    public void mapToUser() throws ParseException {
         UserView view = ViewDataFactory.createViewUser(false, Role.REQUESTOR);
         User user = viewMapper.mapToUser(view);
 
@@ -43,13 +49,13 @@ public class ViewMapperTest {
         StreetAddress address = (StreetAddress)user.getUserAddress();
         assertEquals(view.getStreetName(), address.getStreetName());
         assertEquals(view.getStreetNumber(), address.getStreetNumber());
-        assertEquals(view.getBirthDay(), String.valueOf(user.getBirthDate().getDayOfMonth()));
-        assertEquals(view.getBirthMonth(), String.valueOf(user.getBirthDate().getMonthOfYear()));
-        assertEquals(view.getBirthYear(), String.valueOf(user.getBirthDate().getYear()));
+        assertEquals(view.getBirthDay(), String.valueOf(user.getUserBirthDate().getDayOfMonth()));
+        assertEquals(view.getBirthMonth(), String.valueOf(user.getUserBirthDate().getMonthOfYear()));
+        assertEquals(view.getBirthYear(), String.valueOf(user.getUserBirthDate().getYear()));
     }
 
     @Test
-    public void mapToUserOnlyRequiredFields() {
+    public void mapToUserOnlyRequiredFields() throws ParseException {
         UserView view = ViewDataFactory.createViewUser(true, Role.REQUESTOR);
         User user = viewMapper.mapToUser(view);
 
@@ -69,6 +75,9 @@ public class ViewMapperTest {
 
     @Test
     public void matToDate() {
-
+        DateTime date = viewMapper.mapToDate(DAY, MONTH, YEAR);
+        assertEquals(DAY, String.valueOf(date.getDayOfMonth()));
+        assertEquals(MONTH, String.valueOf(date.getMonthOfYear()));
+        assertEquals(YEAR, String.valueOf(date.getYear()));
     }
 }

@@ -17,8 +17,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import java.util.Date;
+import javax.persistence.Temporal;
 import org.joda.time.DateTime;
+
 
 /**
  *
@@ -60,8 +62,8 @@ public class User {
     private Address userAddress;
 
     @Column(name="BIRTH_DATE")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime birthDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date birthDate;
 
     public User() {
     }
@@ -94,8 +96,16 @@ public class User {
         return email;
     }
 
-    public DateTime getBirthDate() {
+    /**
+     * Only for JPA purposes
+     */
+    @Deprecated
+    public Date getBirthDate() {
         return birthDate;
+    }
+
+    public DateTime getUserBirthDate() {
+        return new DateTime(birthDate);
     }
 
     public void setNewUserData(User updatedUser) {
@@ -146,7 +156,7 @@ public class User {
             return this;
         }
 
-        public Builder withBirthDate(DateTime BirthDate) {
+        public Builder withBirthDate(Date BirthDate) {
             user.birthDate = BirthDate;
             return this;
         }

@@ -35,7 +35,7 @@
         <property name="driverClass" value="${driverClass}"/>
         <property name="jdbcUrl" value="${jdbcUrl}"/>
         <property name="user" value="${dbUser}"/>
-        <property name="password" value="{dbPassword}"/>
+        <property name="password" value="${dbPassword}"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -43,10 +43,10 @@
         <property name="packagesToScan" value="com.sport.coach.domain"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.dialect">${jdbc.hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.default_schema">PUBLIC</prop>
+                <!--<prop key="hibernate.default_schema">PUBLIC</prop>-->
             </props>
         </property>
     </bean>

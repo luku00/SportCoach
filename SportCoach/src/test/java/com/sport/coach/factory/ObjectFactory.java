@@ -5,6 +5,7 @@ import com.sport.coach.domain.address.StreetAddress;
 import com.sport.coach.domain.user.Identification;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import java.text.ParseException;
 
 /**
  *
@@ -23,18 +24,18 @@ public class ObjectFactory extends CommonObjectFactory {
     public static final String USER_PASSWORD = "dehe00";
     public static final String USER_EMAIL = "dehe00@test.com";
 
-    public static User createNewUser(Role role) {
+    public static User createNewUser(Role role) throws ParseException {
         return createSpecificUser(role, USER_LOGIN);
     }
 
-    public static User createSpecificUser(Role role, String login) {
+    public static User createSpecificUser(Role role, String login) throws ParseException {
         return new User.Builder().withFirstName(FIRST_NAME)
                 .withLastName(LAST_NAME)
                 .withRole(role)
                 .withAddress(createAddress())
                 .withIdentification(createUserIdentification(login, USER_PASSWORD))
                 .withEmail(USER_EMAIL)
-                .withBirthDate(createDateTime(BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR))
+                .withBirthDate(createJavaDate(BIRTH_DAY, BIRTH_MONTH, BIRTH_YEAR))
                 .build();
     }
 

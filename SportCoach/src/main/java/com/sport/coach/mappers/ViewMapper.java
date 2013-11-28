@@ -11,6 +11,10 @@ import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.error.ClientServerException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -36,8 +40,18 @@ public class ViewMapper {
                 .withRole(mapToRole(userView.getUserRole()))
                 .withAddress(mapToAddress(userView))
                 .withIdentification(mapToIdentification(userView))
-                .withBirthDate(mapToDate(userView.getBirthDay(), userView.getBirthMonth(), userView.getBirthYear()))
+                .withBirthDate(mapToJavaDate(userView.getBirthDay(), userView.getBirthMonth(), userView.getBirthYear()))
                 .build();
+    }
+
+    public Date mapToJavaDate(String day, String month, String year) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(day + "/" + month + "/" + year);
+        } catch (ParseException e) {
+
+        }
+        return date;
     }
 
     public UserView mapToUserView(User user, UserView userView) throws ClientServerException {
@@ -48,9 +62,9 @@ public class ViewMapper {
             userView = new UserView();
         }
         StreetAddress address = (StreetAddress) user.getUserAddress();
-        userView.setBirthDay(String.valueOf(user.getBirthDate().getDayOfMonth()));
-        userView.setBirthMonth(String.valueOf(user.getBirthDate().getMonthOfYear()));
-        userView.setBirthYear(String.valueOf(user.getBirthDate().getYear()));
+        userView.setBirthDay(String.valueOf(user.getUserBirthDate().getDayOfMonth()));
+        userView.setBirthMonth(String.valueOf(user.getUserBirthDate().getMonthOfYear()));
+        userView.setBirthYear(String.valueOf(user.getUserBirthDate().getYear()));
         userView.setCity(address.getCity());
         userView.setCountry(address.getCountryCode());
         userView.setEmail(user.getEmail());
