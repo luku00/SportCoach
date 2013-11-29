@@ -3,6 +3,8 @@
  **************************************************************************************************/
 package com.sport.coach.service.impl;
 
+import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.service.SportCoachSecurityService;
@@ -21,7 +23,16 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     @Override
     public User save(User user) {
-        return sportCoachDao.save(user);
+        User returnedUser = null;
+        if (user.getRole() == Role.REQUESTOR) {
+            Account account = new Account();
+            account.populateNewAccount(user);
+            sportCoachDao.save(account);
+            returnedUser = user;
+        } else if (user.getRole() == Role.BASIC_USER) {
+            returnedUser = sportCoachDao.save(user);
+        }
+        return returnedUser;
     }
 
     public void setSportCoachDao(SportCoachDao sportCoachDao) {

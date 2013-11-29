@@ -1,5 +1,6 @@
 package com.sport.coach.repository.dao;
 
+import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.user.User;
 
 /**
@@ -46,4 +47,6 @@ public interface SportCoachDao {
      * @param user
      */
     void updateUser(User user);
+
+    public Account save(Account account);
 }

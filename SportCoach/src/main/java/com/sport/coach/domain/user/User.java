@@ -1,5 +1,6 @@
 package com.sport.coach.domain.user;
 
+import com.sport.coach.domain.account.Account;
 import static javax.persistence.EnumType.*;
 import static javax.persistence.CascadeType.*;
 
@@ -18,6 +19,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import org.joda.time.DateTime;
 
@@ -65,7 +68,19 @@ public class User {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthDate;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ACCOUNT_ID")
+    private Account account;
+
     public User() {
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Integer getUserId() {

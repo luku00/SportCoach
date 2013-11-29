@@ -1,5 +1,6 @@
 package com.sport.coach.repository.dao;
 
+import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.user.User;
 import java.util.List;
 import org.hibernate.Query;
@@ -30,6 +31,11 @@ public class SportCoachDaoImpl implements SportCoachDao {
     public User save(User user) {
         getCurrentSession().persist(user);
         return user;
+    }
+
+    public Account save(Account account) {
+        getCurrentSession().persist(account);
+        return account;
     }
 
     @Override
