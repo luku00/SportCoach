@@ -61,8 +61,96 @@
                     <button type="button" class="btn" onclick="changeAccount()"><spring:message code="change" /></button>
                     <button type="submit" class="btn" ><spring:message code="submit" /></button>
                 </div>
+                <div class="controls">
+                    <button type="button" class="btn-small" onclick="displaySubAccountForm()"><spring:message code="subaccount" /></button>
+                </div>
             </div>
         </form>
 
+        <!-- creating sub accounts -->
+        <form id="subAccountForm" class="form-horizontal" action="newSubAccount" method="post" onsubmit="return validateNewSubAccount();">
+            <div class="control-group" hidden="true" id="subAccountRequestForm">
+                <label class="label-info" id="newSubAccountLabel"><spring:message code="newSubAccount" /></label>
+                <label class="control-label"><spring:message code="name" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.firstName" id="subAccountFirstName" maxlength="30" required="true" title="User First name"/>
+                </div>
+                <label class="control-label"><spring:message code="surname" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.lastName" id="subAccountLastName" maxlength="50" required="true"/>
+                </div>
+
+                <label class="control-label"><spring:message code="birthdate" /></label>
+                <div class="controls">
+                    <div style="float: left">
+                        <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="day" /> </label>
+                        <select id="subAccountBirthDay" name="subUserView.birthDay" style="width: 60px" >
+                            <c:forEach var="item" items="${days}">
+                                <option value="${item}">${item}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div style="float: left">
+                        <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="month" /> </label>
+                        <select id="subAccountBirthMonth" name="subUserView.birthMonth" style="width: 60px">
+                            <c:forEach var="item" items="${months}">
+                                <option value="${item}">${item}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="year" /> </label>
+                        <select id="subAccountBirthYear" name="subUserView.birthYear" style="width: 100px">
+                            <c:forEach var="item" items="${years}">
+                                <option value="${item}">${item}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <label class="control-label"><spring:message code="email" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.email" id="subAccountEmail" maxlength="50" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="streetName" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.streetName" id="subAccountStreetName" maxlength="50" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="streetNumber" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.streetNumber" id="subAccountStreetNumber" maxlength="10" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="city" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.city" id="subAccountCity" maxlength="20" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="zip" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.zip" id="subAccountZip" maxlength="10" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="country" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.country" id="subAccountCountry" maxlength="20" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="login" /></label>
+                <div class="controls">
+                    <input type="text" name="subUserView.login" id="subAccountLogin" maxlength="50" required="true" title="User login ID"/>
+                    <label class="label-warning"><spring:message code="${loginExist}" /></label>
+                </div>
+                <label class="control-label"><spring:message code="password" /></label>
+                <div class="controls">
+                    <input type="password" name="subUserView.password" id="subAccountPassword" maxlength="50" required="true"/>
+                </div>
+                <label class="control-label"><spring:message code="password" /></label>
+                <div class="controls">
+                    <input type="password" name="subUserView.password1" id="subAccountPassword1" maxlength="50" required="true"/>
+                </div>
+            </div>
+                <div class="control-group" hidden="true" id="subAccountButtons">
+                    <div class="controls">
+                    </label>
+                    <button type="submit" class="btn" ><spring:message code="submit" /></button>
+                </div>
+            </div>
+        </form>
     </body>
 </html>

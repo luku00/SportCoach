@@ -16,6 +16,7 @@ public class UserInfo implements Serializable {
     private String login;
     private String firstName;
     private String lastName;
+    private Integer accountId;
 
     public String getFirstName() {
         return firstName;
@@ -41,6 +42,14 @@ public class UserInfo implements Serializable {
         this.login = login;
     }
 
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
     public static class Builder {
         private UserInfo userInfo;
 
@@ -64,6 +73,11 @@ public class UserInfo implements Serializable {
 
         public Builder withLogin(String login) {
             userInfo.login = login;
+            return this;
+        }
+
+        public Builder withAccountId(Integer accountId) {
+            userInfo.accountId = accountId;
             return this;
         }
     }

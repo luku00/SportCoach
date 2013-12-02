@@ -6,6 +6,7 @@ package com.sport.coach.service.impl;
 import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import com.sport.coach.error.ClientServerException;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
@@ -22,17 +23,26 @@ public class SportCoachServiceImpl implements SportCoachService {
     private SportCoachSecurityService sportCoachSecurityService;
 
     @Override
-    public User save(User user) {
-        User returnedUser = null;
+    public User save(User user, Integer accountId) throws ClientServerException {
         if (user.getRole() == Role.REQUESTOR) {
-            Account account = new Account();
-            account.populateNewAccount(user);
-            sportCoachDao.save(account);
-            returnedUser = user;
+            createRequestorUser(user);
         } else if (user.getRole() == Role.BASIC_USER) {
-            returnedUser = sportCoachDao.save(user);
+            createBasicUser(user, accountId);
         }
-        return returnedUser;
+        return user;
+    }
+
+    private void createBasicUser(User user, Integer accountId) throws ClientServerException {
+        if (accountId == null) {
+            throw new ClientServerException("Login error");
+        }
+        sportCoachDao.updateAccountWithNewUser(user, accountId);
+    }
+
+    private void createRequestorUser(User user) {
+        Account account = new Account();
+        account.populateNewAccount(user);
+        sportCoachDao.save(account);
     }
 
     public void setSportCoachDao(SportCoachDao sportCoachDao) {
@@ -50,7 +60,11 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     @Override
     public User authenticateUser(String login, String password) {
-        return sportCoachDao.autehenticateUser(login, password);
+        User authenticatedUser = sportCoachDao.autehenticateUser(login, password);
+        if (authenticatedUser != null) {
+            authenticatedUser.getUserIdentification().secure();
+        }
+        return authenticatedUser;
     }
 
     @Override

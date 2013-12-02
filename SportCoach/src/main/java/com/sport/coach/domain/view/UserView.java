@@ -31,6 +31,8 @@ public class UserView implements Serializable {
     private String birthMonth;
     private String birthYear;
 
+    private UserView subUserView;
+
     public String getFirstName() {
         return firstName;
     }
@@ -145,6 +147,14 @@ public class UserView implements Serializable {
 
     public String getBirtDateAsString() {
         return birthDay + "-" + birthMonth + "-" + birthYear;
+    }
+
+    public UserView getSubUserView() {
+        return subUserView;
+    }
+
+    public void setSubUserView(UserView subUserView) {
+        this.subUserView = subUserView;
     }
 
     public static class Builder {

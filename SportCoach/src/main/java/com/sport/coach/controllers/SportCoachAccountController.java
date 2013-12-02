@@ -60,8 +60,11 @@ public class SportCoachAccountController {
         return model;
     }
 
+    /**
+     * Will create new account
+     */
     @RequestMapping(value = "/new/save", method = RequestMethod.POST)
-    public ModelAndView save(@Valid UserView viewUser) {
+    public ModelAndView save(@Valid UserView viewUser) throws ClientServerException {
         ModelAndView model = new ModelAndView();
         model.getModel().put(ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
         model.setViewName("newAccount");
@@ -71,26 +74,49 @@ public class SportCoachAccountController {
 
         } else {
             viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
-            User user = sportCoachService.save(viewMapper.mapToUser(viewUser));
+            User user = sportCoachService.save(viewMapper.mapToUser(viewUser), null);
             model.getModel().put(ViewParams.NEW_ACCOUNT_USER_CREATED, "userCreated");
         }
 
         return model;
     }
 
+    /**
+     * Will create new user sub account under main requestor account
+     */
+    @RequestMapping(value = "/admin/newSubAccount", method = RequestMethod.POST)
+    public ModelAndView saveSubAccount(@Valid UserView viewUser) throws ClientServerException {
+        ModelAndView model = new ModelAndView("adminAccount");
+        viewUser.getSubUserView().setUserRole(Role.BASIC_USER.name());
+        User user = viewMapper.mapToUser(viewUser.getSubUserView());
+        sportCoachService.save(user, userInfo.getAccountId());
+        loadDefaultNewAccountParams(model);
+        return model;
+    }
+
+    /**
+     * Login page
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
+    /**
+     * Will load user admin page
+     */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminOwnAccount() throws ClientServerException {
         ModelAndView model = new ModelAndView("adminAccount");
         userView = viewMapper.mapToUserView(sportCoachService.getUser(userInfo.getLogin()), userView);
         model.addObject("userData", userView);
+        loadDefaultNewAccountParams(model);
         return model;
     }
 
+    /**
+     * This will change account data
+     */
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public ModelAndView changeAccountData(@Valid UserView viewUser) throws ClientServerException {
         ModelAndView model = new ModelAndView("home");
@@ -100,6 +126,10 @@ public class SportCoachAccountController {
         return model;
     }
 
+    /**
+     * User login authentication .. if login and password is correct will load
+     * main used data
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView authenticate(@Valid UserView viewUser) {
         ModelAndView model = new ModelAndView();

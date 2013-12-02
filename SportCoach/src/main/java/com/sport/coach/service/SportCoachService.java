@@ -4,13 +4,14 @@
 package com.sport.coach.service;
 
 import com.sport.coach.domain.user.User;
+import com.sport.coach.error.ClientServerException;
 
 /**
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
  */
 public interface SportCoachService {
 
-    User save(User user);
+    User save(User user, Integer accountId) throws ClientServerException;
 
     boolean checkIfLoginExists(String login);
 

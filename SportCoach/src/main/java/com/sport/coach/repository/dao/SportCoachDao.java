@@ -49,4 +49,8 @@ public interface SportCoachDao {
     void updateUser(User user);
 
     public Account save(Account account);
+
+    public Account getAccount(Integer accountId);
+
+    public void updateAccountWithNewUser(User user, Integer accountId);
 }

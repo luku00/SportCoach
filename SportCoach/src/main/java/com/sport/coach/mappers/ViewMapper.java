@@ -30,6 +30,7 @@ public class ViewMapper {
                 .withFirstName(user.getFirstName())
                 .withLastName(user.getLastName())
                 .withLogin(user.getUserIdentification().getUserLogin())
+                .withAccountId(user.getAccount().getUserId())
                 .build();
     }
 

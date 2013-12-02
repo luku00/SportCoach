@@ -15,7 +15,7 @@
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="layout.jsp" />
-        <label class="control-label"><spring:message code="${userCreated}" /></label>
+        <label class="label-success"><spring:message code="${userCreated}" /></label>
         <form id="newAccountForm" class="form-horizontal" action="save" method="post" onsubmit="return validateNewAccount();">
             <div class="control-group">
                 <label class="control-label"><spring:message code="name" /></label>

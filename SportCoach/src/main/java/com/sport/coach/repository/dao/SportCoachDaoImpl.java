@@ -79,12 +79,30 @@ public class SportCoachDaoImpl implements SportCoachDao {
         }
 
         User user = (User)result.iterator().next();
-        user.getUserIdentification().secure();;
         return user;
     }
 
     @Override
     public void updateUser(User user) {
         getCurrentSession().update(user);
+    }
+
+    @Override
+    public Account getAccount(Integer accountId) {
+        Query query = getCurrentSession().getNamedQuery("Account.findAccountById");
+        query.setParameter("id", accountId);
+        List result = query.list();
+        if (result.isEmpty() || result.size() > 1) {
+            return null;
+        }
+        Account account = (Account) result.iterator().next();
+        return account;
+    }
+
+    @Override
+    public void updateAccountWithNewUser(User user, Integer accountId) {
+        Account account = getAccount(accountId);
+        user.setAccount(account);
+        account.getUsers().add(user);
     }
 }
