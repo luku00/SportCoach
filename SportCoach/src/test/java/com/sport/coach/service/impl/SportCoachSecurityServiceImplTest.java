@@ -20,23 +20,12 @@ public class SportCoachSecurityServiceImplTest {
     private SportCoachSecurityService sportCoachSecurityService;
 
     /**
-     * Test of hashPassword method, of class SportCoachSecurityServiceImpl.
-     */
-    @Test
-    public void testHashPassword() {
-        String password = "test12*";
-        String expResult = "HR4VZV02wLv5NHhXpXGmHZmHm0U=";
-        String result = sportCoachSecurityService.hashPassword(password);
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of passwordMatch method, of class SportCoachSecurityServiceImpl.
      */
     @Test
     public void testPasswordMatch() {
         String password = "test12*";
-        String hash = "HR4VZV02wLv5NHhXpXGmHZmHm0U=";
+        String hash = sportCoachSecurityService.hashPassword(password);
 
         boolean result = sportCoachSecurityService.passwordMatch(password, hash);
         assertTrue(result);

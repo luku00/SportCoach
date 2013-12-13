@@ -19,7 +19,7 @@ public class UserView implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String login;
+    private String username;
     private String password;
     private String userRole;
     private String city;
@@ -49,12 +49,12 @@ public class UserView implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -179,8 +179,8 @@ public class UserView implements Serializable {
             return this;
         }
 
-        public Builder withLogin(String login) {
-            userView.login = login;
+        public Builder withUsername(String username) {
+            userView.username = username;
             return this;
         }
 

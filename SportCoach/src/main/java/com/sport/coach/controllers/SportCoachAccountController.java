@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.joda.time.LocalDate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -68,7 +70,7 @@ public class SportCoachAccountController {
         ModelAndView model = new ModelAndView();
         model.getModel().put(ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
         model.setViewName("newAccount");
-        if (sportCoachService.checkIfLoginExists(viewUser.getLogin())) {
+        if (sportCoachService.checkIfLoginExists(viewUser.getUsername())) {
             model.getModel().put(ViewParams.NEW_ACCOUNT_EXISTING_LOGIN, "loginExist");
             model.getModel().put(ViewParams.NEW_ACCOUNT_USER_VIEW, viewUser);
 
@@ -107,6 +109,8 @@ public class SportCoachAccountController {
      */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminOwnAccount() throws ClientServerException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
         ModelAndView model = new ModelAndView("adminAccount");
         userView = viewMapper.mapToUserView(sportCoachService.getUser(userInfo.getLogin()), userView);
         model.addObject("userData", userView);
@@ -133,17 +137,17 @@ public class SportCoachAccountController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView authenticate(@Valid UserView viewUser) {
         ModelAndView model = new ModelAndView();
-        viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
-        User authenticatedUser = sportCoachService.authenticateUser(viewUser.getLogin(), viewUser.getPassword());
-        if (authenticatedUser == null) {
-            model.setViewName("login");
-            model.getModel().put(ViewParams.LOGIN_ERROR, "loginError");
-        } else {
-            model.setViewName("home");
-            userInfo = viewMapper.mapUserToUserInfo(authenticatedUser);
-            model.addObject("userInfo", userInfo);
-        }
-
+//        viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
+//        User authenticatedUser = sportCoachService.authenticateUser(viewUser.getUsername(), viewUser.getPassword());
+//        if (authenticatedUser == null) {
+//            model.setViewName("login");
+//            model.getModel().put(ViewParams.LOGIN_ERROR, "loginError");
+//        } else {
+//            model.setViewName("home");
+//            userInfo = viewMapper.mapUserToUserInfo(authenticatedUser);
+//            model.addObject("userInfo", userInfo);
+//        }
+        model.setViewName("home");
         return model;
     }
 

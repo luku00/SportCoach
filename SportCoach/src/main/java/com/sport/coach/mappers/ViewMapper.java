@@ -87,7 +87,7 @@ public class ViewMapper {
     }
 
     private Identification mapToIdentification(UserView userView) {
-        Identification identification = new Identification(userView.getLogin(), userView.getPassword());
+        Identification identification = new Identification(userView.getUsername(), userView.getPassword());
         return identification;
     }
 

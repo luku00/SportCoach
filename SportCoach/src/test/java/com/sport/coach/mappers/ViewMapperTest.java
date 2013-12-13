@@ -40,7 +40,7 @@ public class ViewMapperTest {
         assertEquals(view.getFirstName(), user.getFirstName());
         assertEquals(view.getLastName(), user.getLastName());
         assertEquals(view.getEmail(), user.getEmail());
-        assertEquals(view.getLogin(), user.getUserIdentification().getUserLogin());
+        assertEquals(view.getUsername(), user.getUserIdentification().getUserLogin());
         assertEquals(view.getPassword(), user.getUserIdentification().getUserPassword());
         assertEquals(view.getCity(), user.getUserAddress().getCity());
         assertEquals(view.getCountry(), user.getUserAddress().getCountryCode());
@@ -62,7 +62,7 @@ public class ViewMapperTest {
         assertEquals(view.getFirstName(), user.getFirstName());
         assertEquals(view.getLastName(), user.getLastName());
         assertEquals(view.getEmail(), user.getEmail());
-        assertEquals(view.getLogin(), user.getUserIdentification().getUserLogin());
+        assertEquals(view.getUsername(), user.getUserIdentification().getUserLogin());
         assertEquals(view.getPassword(), user.getUserIdentification().getUserPassword());
         assertNull(user.getUserAddress().getCity());
         assertNull(user.getUserAddress().getCountryCode());

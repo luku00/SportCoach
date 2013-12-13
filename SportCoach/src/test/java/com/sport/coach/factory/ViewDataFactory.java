@@ -17,7 +17,7 @@ public class ViewDataFactory extends CommonObjectFactory {
         userView.setFirstName("Lukas");
         userView.setLastName("Kubicek");
         userView.setEmail("test@test.com");
-        userView.setLogin("luku");
+        userView.setUsername("luku");
         userView.setPassword("dgsfds");
         userView.setUserRole(role.name());
         userView.setBirthDay(BIRTH_DAY);

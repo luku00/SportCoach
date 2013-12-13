@@ -21,6 +21,14 @@
         <project.jadira.version>3.1.0.CR1</project.jadira.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>spring-libs-milestone</id>
+            <name>Spring Milestone Repository</name>
+            <url>http://repo.springsource.org/milestone</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
         <!-- Spring -->
         <dependency>
@@ -49,6 +57,19 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+
+        <!-- Spring security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>3.2.0.RC2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>3.2.0.RC2</version>
+        </dependency>
+
         <!-- Hibernate validator -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -267,9 +288,9 @@
                 <configuration>
                     <classpathDependencyExcludes>
                         <!--
-                            SLF4J bindings exluded in case there were brought transitively by some dependencies.
-                            This setup avoids heavy logging during unit testing.
-                         -->
+                           SLF4J bindings exluded in case there were brought transitively by some dependencies.
+                           This setup avoids heavy logging during unit testing.
+                        -->
                         <classpathDependencyExclude>org.slf4j:slf4j-jdk14</classpathDependencyExclude>
                         <classpathDependencyExclude>ch.qos.logback:logback-classic</classpathDependencyExclude>
                         <classpathDependencyExclude>commons-logging:commons-logging</classpathDependencyExclude>

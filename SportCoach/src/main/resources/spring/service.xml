@@ -21,7 +21,13 @@
         <property name="sportCoachSecurityService" ref="sportCoachSecurityService" />
     </bean>
 
-    <bean id="sportCoachSecurityService" class="com.sport.coach.service.impl.SportCoachSecurityServiceImpl" />
+    <bean id="sportCoachSecurityService" class="com.sport.coach.service.impl.SportCoachSecurityServiceImpl" >
+        <property name="encoder" ref="bCryptPasswordEncoder" />
+    </bean>
+
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg type="int" index="0" name="strength" value="${encoderStrength}"/>
+    </bean>
 
     <bean id="sportCoachDao" class="com.sport.coach.repository.dao.SportCoachDaoImpl" />
 </beans>
