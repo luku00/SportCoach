@@ -5,10 +5,10 @@ import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.factory.ObjectFactory;
 import com.sport.coach.repository.dao.SportCoachDao;
+import com.sport.coach.test.helpers.CommonAssertions;
 import java.text.ParseException;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +36,18 @@ public class RepositoryTest {
         assertNotNull(dao);
     }
 
-    @Ignore
     @Test
     public void storeAndGetRequestorUser() throws ParseException {
         User user = ObjectFactory.createNewUser(Role.REQUESTOR);
         Account acc = new Account();
-        //acc.setRequestor(user);
+        acc.populateNewAccount(user);
         Account accs = dao.save(acc);
 
-        //CommonAssertions.assertEqualUsers(user, accs.getRequestor());
-
-        // get stored user
-        //User persistedUser = dao.getUser(accs.getRequestor().getUserIdentification().getUserLogin());
-        //CommonAssertions.assertEqualUsers(accs.getRequestor(), persistedUser);
-        //assertNotNull(persistedUser.getAccount());
+        assertNotNull(accs);
+        assertNotNull(accs.getUsers());
+        User storedUser = accs.getUsers().iterator().next();
+        assertNotNull(storedUser);
+        CommonAssertions.assertEqualUsers(user, storedUser);
     }
 
     @Test
@@ -57,16 +55,26 @@ public class RepositoryTest {
         User user = ObjectFactory.createSpecificUser(Role.BASIC_USER, "luku");
         User requestor = ObjectFactory.createSpecificUser(Role.REQUESTOR, "lukus");
         Account acc = new Account();
-        //acc.setRequestor(requestor);
-        acc.getUsers().add(user);
-        acc.populateAccountToAllUsers();
+        acc.populateNewAccount(requestor);
+
+        // save account with requestor
         Account accs = dao.save(acc);
 
-        //CommonAssertions.assertEqualUsers(requestor, accs.getRequestor());
+        // update account with new user
+        dao.updateAccountWithNewUser(user, accs.getUserId());
+
+        // get stored account
+        accs = dao.getAccount(accs.getUserId());
+
+        // assertions
+        assertNotNull(accs);
+        assertEquals(2, accs.getUsers().size());
+
+        CommonAssertions.assertEqualUsers(requestor, accs.getRequestor());
 
         // get stored user
         User persistedUser = dao.getUser(user.getUserIdentification().getUserLogin());
-        //CommonAssertions.assertEqualUsers(accs.getRequestor(), persistedUser);
+        CommonAssertions.assertEqualUsers(user, persistedUser);
         assertNotNull(persistedUser.getAccount());
     }
 

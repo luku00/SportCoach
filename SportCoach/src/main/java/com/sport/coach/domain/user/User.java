@@ -110,6 +110,9 @@ public class User {
         return email;
     }
 
+    public boolean isRequestor() {
+        return Role.REQUESTOR == role;
+    }
     /**
      * Only for JPA purposes
      */

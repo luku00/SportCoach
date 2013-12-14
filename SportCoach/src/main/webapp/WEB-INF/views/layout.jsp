@@ -31,8 +31,8 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
                 <li><a href="/SportCoach/account/new/"><spring:message code="newRegistration" /></a></li>
-              <li><a href="/SportCoach/account/login/"><spring:message code="signIn" /></a></li>
-              <li><a href="/SportCoach/account/admin/"><spring:message code="accountAdmin" /></a></li>
+                <!--<li><a href="/SportCoach/account/login/"><!--spring:message code="signIn" /></a></li>-->
+                <li><a href="/SportCoach/account/admin/"><spring:message code="accountAdmin" /></a></li>
               <!--              <li><a href="/demo/payment/list">Payment list</a></li>
               <li><a href="/demo/nsa/payments">NSA</a></li>
               <li><a href="/demo/nsa/list">NSA list</a></li>

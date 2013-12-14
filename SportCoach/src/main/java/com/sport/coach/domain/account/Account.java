@@ -1,6 +1,3 @@
-/***************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- **************************************************************************************************/
 package com.sport.coach.domain.account;
 
 import com.sport.coach.domain.user.User;
@@ -86,5 +83,18 @@ public class Account {
         for (User usr : users) {
             usr.setAccount(this);
         }
+    }
+
+    public User getRequestor() {
+        User requestor = null;
+        if (users != null || !users.isEmpty()) {
+            for (User user : users) {
+                if (user.isRequestor()) {
+                    requestor = user;
+                    break;
+                }
+            }
+        }
+        return requestor;
     }
 }

@@ -1,6 +1,3 @@
-/***************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- **************************************************************************************************/
 package com.sport.coach.service.impl;
 
 import com.sport.coach.domain.account.Account;

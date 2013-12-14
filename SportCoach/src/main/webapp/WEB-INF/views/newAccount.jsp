@@ -90,7 +90,7 @@
                 </div>
                 <label class="control-label"><spring:message code="login" /></label>
                 <div class="controls">
-                    <input type="text" name="login" id="login" maxlength="50" required="true" title="User login ID"/>
+                    <input type="text" name="username" id="username" maxlength="50" required="true" title="User login ID"/>
                     <label class="control-label"><spring:message code="${loginExist}" /></label>
                 </div>
                 <label class="control-label"><spring:message code="password" /></label>

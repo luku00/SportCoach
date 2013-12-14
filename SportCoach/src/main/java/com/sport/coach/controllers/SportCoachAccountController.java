@@ -56,8 +56,13 @@ public class SportCoachAccountController {
     private SportCoachSecurityService sportCoachSecurityService;
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public ModelAndView index() {
-        ModelAndView model = new ModelAndView("newAccount", ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
+    public ModelAndView newAccount() {
+        // at the moment allowed to have only requestor
+        // later we may use createListOfRoles() to allow all roles
+        List<Role> role = new ArrayList<>();
+        role.add(Role.REQUESTOR);
+
+        ModelAndView model = new ModelAndView("newAccount", ViewParams.NEW_ACCOUNT_ROLES, role);
         loadDefaultNewAccountParams(model);
         return model;
     }
@@ -68,7 +73,13 @@ public class SportCoachAccountController {
     @RequestMapping(value = "/new/save", method = RequestMethod.POST)
     public ModelAndView save(@Valid UserView viewUser) throws ClientServerException {
         ModelAndView model = new ModelAndView();
-        model.getModel().put(ViewParams.NEW_ACCOUNT_ROLES, createListOfRoles());
+
+        // at the moment allowed to have only requestor
+        // later we may use createListOfRoles() to allow all roles
+        List<Role> role = new ArrayList<>();
+        role.add(Role.REQUESTOR);
+
+        model.getModel().put(ViewParams.NEW_ACCOUNT_ROLES, role);
         model.setViewName("newAccount");
         if (sportCoachService.checkIfLoginExists(viewUser.getUsername())) {
             model.getModel().put(ViewParams.NEW_ACCOUNT_EXISTING_LOGIN, "loginExist");
@@ -134,7 +145,7 @@ public class SportCoachAccountController {
      * User login authentication .. if login and password is correct will load
      * main used data
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    //@RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView authenticate(@Valid UserView viewUser) {
         ModelAndView model = new ModelAndView();
 //        viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
