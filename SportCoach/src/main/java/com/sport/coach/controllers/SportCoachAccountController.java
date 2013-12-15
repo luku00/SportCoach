@@ -132,8 +132,8 @@ public class SportCoachAccountController {
      */
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public ModelAndView changeAccountData(@Valid UserView viewUser) throws ClientServerException {
-        ModelAndView model = new ModelAndView("home");
-        User updatedUser = sportCoachService.updateUserData(viewMapper.mapToUser(viewUser), userInfo.getLogin());
+        ModelAndView model = new ModelAndView("redirect:/account/admin");
+        User updatedUser = sportCoachService.updateUserData(viewMapper.mapToUser(viewUser), getLoggedUserName());
         userInfo = viewMapper.mapUserToUserInfo(updatedUser);
         model.addObject("userInfo", userInfo);
         return model;

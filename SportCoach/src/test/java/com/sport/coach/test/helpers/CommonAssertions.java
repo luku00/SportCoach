@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 public class CommonAssertions {
 

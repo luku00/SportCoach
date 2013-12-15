@@ -1,5 +1,6 @@
 package com.sport.coach.factory;
 
+import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.address.Address;
 import com.sport.coach.domain.address.StreetAddress;
 import com.sport.coach.domain.user.Identification;
@@ -23,6 +24,12 @@ public class ObjectFactory extends CommonObjectFactory {
     public static final String USER_LOGIN = "dehe00";
     public static final String USER_PASSWORD = "dehe00";
     public static final String USER_EMAIL = "dehe00@test.com";
+
+    public static Account createNewAccountWithOneUser(Role role) throws ParseException {
+        Account acc = new Account();
+        acc.populateNewAccount(createNewUser(role));
+        return acc;
+    }
 
     public static User createNewUser(Role role) throws ParseException {
         return createSpecificUser(role, USER_LOGIN);
