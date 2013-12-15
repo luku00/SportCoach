@@ -16,6 +16,11 @@
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="layout.jsp" />
         <form id="userLoginForm" class="form-horizontal" action="" method="post">
+            <c:if test="${param.error != null}">
+                <div class="alert alert-error">
+                    <spring:message code="loginError" />
+                </div>
+            </c:if>
             <div class="control-group">
                 <label class="control-label"><spring:message code="login" /></label>
                 <div class="controls">
@@ -26,7 +31,6 @@
                     <input type="password" name="password" id="password" maxlength="50" required="true"/>
                 </div>
             </div>
-            <label class="control-label"><spring:message code="${loginError}" /></label>
             <div class="control-group">
                 <div class="controls">
                     </label>

@@ -5,7 +5,6 @@ import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.error.ClientServerException;
 import com.sport.coach.repository.dao.SportCoachDao;
-import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class SportCoachServiceImpl implements SportCoachService {
 
     private SportCoachDao sportCoachDao;
-
-    private SportCoachSecurityService sportCoachSecurityService;
 
     @Override
     public User save(User user, Integer accountId) throws ClientServerException {
@@ -44,10 +41,6 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     public void setSportCoachDao(SportCoachDao sportCoachDao) {
         this.sportCoachDao = sportCoachDao;
-    }
-
-    public void setSportCoachSecurityService(SportCoachSecurityService sportCoachSecurityService) {
-        this.sportCoachSecurityService = sportCoachSecurityService;
     }
 
     @Override

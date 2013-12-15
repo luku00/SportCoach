@@ -120,10 +120,8 @@ public class SportCoachAccountController {
      */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminOwnAccount() throws ClientServerException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
         ModelAndView model = new ModelAndView("adminAccount");
-        userView = viewMapper.mapToUserView(sportCoachService.getUser(userInfo.getLogin()), userView);
+        userView = viewMapper.mapToUserView(sportCoachService.getUser(getLoggedUserName()), userView);
         model.addObject("userData", userView);
         loadDefaultNewAccountParams(model);
         return model;
@@ -142,24 +140,13 @@ public class SportCoachAccountController {
     }
 
     /**
-     * User login authentication .. if login and password is correct will load
-     * main used data
+     * will load logged user from security context
+     *
+     * @return actually logged userName
      */
-    //@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView authenticate(@Valid UserView viewUser) {
-        ModelAndView model = new ModelAndView();
-//        viewUser.setPassword(sportCoachSecurityService.hashPassword(viewUser.getPassword()));
-//        User authenticatedUser = sportCoachService.authenticateUser(viewUser.getUsername(), viewUser.getPassword());
-//        if (authenticatedUser == null) {
-//            model.setViewName("login");
-//            model.getModel().put(ViewParams.LOGIN_ERROR, "loginError");
-//        } else {
-//            model.setViewName("home");
-//            userInfo = viewMapper.mapUserToUserInfo(authenticatedUser);
-//            model.addObject("userInfo", userInfo);
-//        }
-        model.setViewName("home");
-        return model;
+    private String getLoggedUserName() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName(); //get logged in username
     }
 
     private List<String> createListOfRoles() {
