@@ -4,6 +4,8 @@
 package com.sport.coach.domain.view;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -33,6 +35,14 @@ public class UserView implements Serializable {
     private String birthYear;
 
     private UserView subUserView;
+    private Set<SubAccountView> subAccounts;
+
+    public Set<SubAccountView> getSubAccounts() {
+        if (subAccounts == null) {
+            subAccounts = new HashSet<>();
+        }
+        return subAccounts;
+    }
 
     public String getFirstName() {
         return firstName;

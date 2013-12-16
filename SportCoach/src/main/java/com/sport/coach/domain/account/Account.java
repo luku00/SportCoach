@@ -97,4 +97,14 @@ public class Account {
         }
         return requestor;
     }
+
+    public Set<User> getSubUsers() {
+        Set<User> subUsers = new HashSet<>();
+        for (User usr : users) {
+            if (!usr.isRequestor()) {
+                subUsers.add(usr);
+            }
+        }
+        return subUsers;
+    }
 }

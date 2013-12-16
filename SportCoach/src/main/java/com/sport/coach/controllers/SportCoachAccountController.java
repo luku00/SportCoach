@@ -117,6 +117,7 @@ public class SportCoachAccountController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminOwnAccount() throws ClientServerException {
         ModelAndView model = new ModelAndView("adminAccount");
+        emptyOldData();
         userView = viewMapper.mapToUserView(sportCoachService.getUser(getLoggedUserName()), userView);
         userInfo.setAccountId(userView.getAccountId());
         model.addObject("userData", userView);
@@ -185,5 +186,12 @@ public class SportCoachAccountController {
             years.add(String.valueOf(currentYear - i));
         }
         return years;
+    }
+
+    /**
+     * will clean data which might be out of date
+     */
+    private void emptyOldData() {
+        userView.getSubAccounts().clear();
     }
 }

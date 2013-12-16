@@ -144,5 +144,8 @@
                 </div>
             </div>
         </form>
+
+        <!-- list of sub accounts  -->
+        <jsp:include page="subAccounts.jsp" />
     </body>
 </html>

@@ -8,13 +8,16 @@ import com.sport.coach.domain.address.StreetAddress;
 import com.sport.coach.domain.user.Identification;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import com.sport.coach.domain.view.SubAccountView;
 import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.error.ClientServerException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -76,7 +79,19 @@ public class ViewMapper {
         userView.setUserRole(user.getRole().name());
         userView.setZip(address.getZipCode());
         userView.setAccountId(user.getAccount().getUserId());
+        if (user.isRequestor() && !user.getAccount().getSubUsers().isEmpty()) {
+            userView.getSubAccounts().addAll(mapToSubAccountView(user.getAccount().getSubUsers()));
+        }
         return userView;
+    }
+
+    public Set<SubAccountView> mapToSubAccountView(Set<User> subUsers) {
+        Set<SubAccountView> subAccounts = new HashSet<>();
+        for (User usr : subUsers) {
+            subAccounts.add(new SubAccountView(usr.getFirstName(),
+                    usr.getLastName(), usr.getEmail(), usr.getUserIdentification().getUserLogin()));
+        }
+        return subAccounts;
     }
 
     public DateTime mapToDate(String day, String month, String year) {
