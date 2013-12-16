@@ -1,8 +1,3 @@
-/**
- * *************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- *************************************************************************************************
- */
 package com.sport.coach.controllers;
 
 import com.sport.coach.domain.user.Role;
@@ -29,7 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek.work@gmail.com>
+ * @author Lukas Kubicek
  */
 @Controller
 @RequestMapping("/account")
@@ -101,6 +96,7 @@ public class SportCoachAccountController {
     public ModelAndView saveSubAccount(@Valid UserView viewUser) throws ClientServerException {
         ModelAndView model = new ModelAndView("adminAccount");
         viewUser.getSubUserView().setUserRole(Role.BASIC_USER.name());
+        viewUser.getSubUserView().setPassword(sportCoachSecurityService.getHashedDefaultPassword());
         User user = viewMapper.mapToUser(viewUser.getSubUserView());
         sportCoachService.save(user, userInfo.getAccountId());
         loadDefaultNewAccountParams(model);
@@ -122,7 +118,9 @@ public class SportCoachAccountController {
     public ModelAndView adminOwnAccount() throws ClientServerException {
         ModelAndView model = new ModelAndView("adminAccount");
         userView = viewMapper.mapToUserView(sportCoachService.getUser(getLoggedUserName()), userView);
+        userInfo.setAccountId(userView.getAccountId());
         model.addObject("userData", userView);
+        model.addObject("userInfo", userInfo);
         loadDefaultNewAccountParams(model);
         return model;
     }

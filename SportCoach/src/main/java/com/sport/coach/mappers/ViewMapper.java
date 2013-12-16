@@ -75,6 +75,7 @@ public class ViewMapper {
         userView.setStreetNumber(address.getStreetNumber());
         userView.setUserRole(user.getRole().name());
         userView.setZip(address.getZipCode());
+        userView.setAccountId(user.getAccount().getUserId());
         return userView;
     }
 

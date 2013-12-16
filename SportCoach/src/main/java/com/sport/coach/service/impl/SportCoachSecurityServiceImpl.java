@@ -1,6 +1,3 @@
-/***************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- **************************************************************************************************/
 package com.sport.coach.service.impl;
 
 import com.sport.coach.service.SportCoachSecurityService;
@@ -8,17 +5,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 public class SportCoachSecurityServiceImpl implements SportCoachSecurityService {
 
     private BCryptPasswordEncoder encoder;
+    private String defaultPassword;
 
     @Override
     public String hashPassword(String password) {
         return encoder.encode(password);
     }
 
+    @Override
     public boolean passwordMatch(String password, String hash) {
         return encoder.matches(password, hash);
     }
@@ -27,4 +26,12 @@ public class SportCoachSecurityServiceImpl implements SportCoachSecurityService 
         this.encoder = encoder;
     }
 
+    public void setDefaultPassword(String defaultPassword) {
+        this.defaultPassword = defaultPassword;
+    }
+
+    @Override
+    public String getHashedDefaultPassword() {
+        return hashPassword(defaultPassword);
+    }
 }

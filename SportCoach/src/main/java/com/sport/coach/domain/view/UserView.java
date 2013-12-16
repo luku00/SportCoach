@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserView implements Serializable {
 
+    private Integer accountId;
     private String firstName;
     private String lastName;
     private String email;
@@ -157,6 +158,14 @@ public class UserView implements Serializable {
         this.subUserView = subUserView;
     }
 
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
+
     public static class Builder {
 
         private UserView userView;
@@ -231,6 +240,11 @@ public class UserView implements Serializable {
 
         public Builder withBirthYear(String birthYear) {
             userView.birthYear = birthYear;
+            return this;
+        }
+
+        public Builder withAccountId(Integer accountId) {
+            userView.accountId = accountId;
             return this;
         }
     }

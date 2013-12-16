@@ -133,16 +133,8 @@
                 </div>
                 <label class="control-label"><spring:message code="login" /></label>
                 <div class="controls">
-                    <input type="text" name="subUserView.login" id="subAccountLogin" maxlength="50" required="true" title="User login ID"/>
+                    <input type="text" name="subUserView.username" id="subAccountUserName" maxlength="50" required="true" title="User login ID"/>
                     <label class="label-warning"><spring:message code="${loginExist}" /></label>
-                </div>
-                <label class="control-label"><spring:message code="password" /></label>
-                <div class="controls">
-                    <input type="password" name="subUserView.password" id="subAccountPassword" maxlength="50" required="true"/>
-                </div>
-                <label class="control-label"><spring:message code="password" /></label>
-                <div class="controls">
-                    <input type="password" name="subUserView.password1" id="subAccountPassword1" maxlength="50" required="true"/>
                 </div>
             </div>
                 <div class="control-group" hidden="true" id="subAccountButtons">

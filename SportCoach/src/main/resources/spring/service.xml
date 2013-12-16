@@ -22,6 +22,7 @@
 
     <bean id="sportCoachSecurityService" class="com.sport.coach.service.impl.SportCoachSecurityServiceImpl" >
         <property name="encoder" ref="bCryptPasswordEncoder" />
+        <property name="defaultPassword" value="${defaultPasswordForNewUser}" />
     </bean>
 
     <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

@@ -19,14 +19,14 @@ function validateNewSubAccount() {
     if (!validateEmail(emailObj)) {
         return false;
     }
-    var password1 = document.getElementById("subAccountPassword");
-    var password2 = document.getElementById("subAccountPassword1");
-    if (!validatePasswordMatch(password1.value, password2.value)) {
-        alert("Passwords not match");
-        password1.style.borderColor = "#FF0000";
-        password2.style.borderColor = "#FF0000";
-        return false;
-    }
+//    var password1 = document.getElementById("subAccountPassword");
+//    var password2 = document.getElementById("subAccountPassword1");
+//    if (!validatePasswordMatch(password1.value, password2.value)) {
+//        alert("Passwords not match");
+//        password1.style.borderColor = "#FF0000";
+//        password2.style.borderColor = "#FF0000";
+//        return false;
+//    }
     return true;
 }
 
