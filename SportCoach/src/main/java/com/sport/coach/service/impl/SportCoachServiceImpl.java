@@ -4,8 +4,10 @@ import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.error.ClientServerException;
+import com.sport.coach.mappers.JobManagerMapper;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.service.SportCoachService;
+import com.sport.jobmanager.common.JobType;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SportCoachServiceImpl implements SportCoachService {
 
     private SportCoachDao sportCoachDao;
+    private JobManagerMapper jobManagerMapper;
 
     @Override
     public User save(User user, Integer accountId) throws ClientServerException {
@@ -31,6 +34,7 @@ public class SportCoachServiceImpl implements SportCoachService {
             throw new ClientServerException("Login error");
         }
         sportCoachDao.updateAccountWithNewUser(user, accountId);
+        createNewJob(JobType.EMAIL_NEW_SUB_USER, user);
     }
 
     private void createRequestorUser(User user) {
@@ -41,6 +45,10 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     public void setSportCoachDao(SportCoachDao sportCoachDao) {
         this.sportCoachDao = sportCoachDao;
+    }
+
+    public void setJobManagerMapper(JobManagerMapper jobManagerMapper) {
+        this.jobManagerMapper = jobManagerMapper;
     }
 
     @Override
@@ -68,5 +76,9 @@ public class SportCoachServiceImpl implements SportCoachService {
         User storedUser = sportCoachDao.getUser(login);
         storedUser.setNewUserData(user);
         return storedUser;
+    }
+
+    private void createNewJob(JobType jobType, User user) {
+        sportCoachDao.save(jobManagerMapper.mapToJob(jobType, user));
     }
 }

@@ -2,6 +2,7 @@ package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.user.User;
+import com.sport.jobmanager.common.domain.Job;
 
 /**
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
@@ -53,4 +54,9 @@ public interface SportCoachDao {
     public Account getAccount(Integer accountId);
 
     public void updateAccountWithNewUser(User user, Integer accountId);
+
+    /**
+     * This will save to db jobManager common object
+     */
+    void save(Job job);
 }

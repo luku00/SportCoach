@@ -13,11 +13,13 @@
 	   http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 
-    <!--<bean id="UserService" class="com.own.mvc.mvctest.services.impl.UserServiceImpl" />-->
     <bean id="viewMapper" class="com.sport.coach.mappers.ViewMapper" />
+
+    <bean id="jobManagerMapper" class="com.sport.coach.mappers.JobManagerMapper" />
 
     <bean id="sportCoachService" class="com.sport.coach.service.impl.SportCoachServiceImpl">
         <property name="sportCoachDao" ref="sportCoachDao" />
+        <property name="jobManagerMapper" ref="jobManagerMapper" />
     </bean>
 
     <bean id="sportCoachSecurityService" class="com.sport.coach.service.impl.SportCoachSecurityServiceImpl" >

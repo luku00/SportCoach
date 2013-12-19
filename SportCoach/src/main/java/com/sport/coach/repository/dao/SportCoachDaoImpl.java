@@ -2,6 +2,7 @@ package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.account.Account;
 import com.sport.coach.domain.user.User;
+import com.sport.jobmanager.common.domain.Job;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -33,9 +34,15 @@ public class SportCoachDaoImpl implements SportCoachDao {
         return user;
     }
 
+    @Override
     public Account save(Account account) {
         getCurrentSession().persist(account);
         return account;
+    }
+
+    @Override
+    public void save(Job job) {
+        getCurrentSession().persist(job);
     }
 
     @Override
@@ -58,14 +65,6 @@ public class SportCoachDaoImpl implements SportCoachDao {
         }
 
         return (User)result.iterator().next();
-    }
-
-    /**
-     * Only for test purposes
-     */
-    @Deprecated
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 
     @Override

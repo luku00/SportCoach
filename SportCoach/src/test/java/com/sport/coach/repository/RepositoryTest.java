@@ -6,6 +6,7 @@ import com.sport.coach.domain.user.User;
 import com.sport.coach.factory.ObjectFactory;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.test.helpers.CommonAssertions;
+import com.sport.jobmanager.common.domain.Job;
 import java.text.ParseException;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -95,5 +96,15 @@ public class RepositoryTest {
         assertEquals(user.getEmail(), authenticatedUser.getEmail());
         assertEquals(user.getFirstName(), authenticatedUser.getFirstName());
         assertEquals(user.getLastName(), authenticatedUser.getLastName());
+    }
+
+    @Test
+    public void saveEmptyJob() {
+        Job job = new Job();
+        try {
+            dao.save(job);
+        } catch (Exception e) {
+            fail();
+        }
     }
 }
