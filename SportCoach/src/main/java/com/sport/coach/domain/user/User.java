@@ -30,6 +30,7 @@ import org.joda.time.DateTime;
  */
 @NamedQueries({
     @NamedQuery(name = "User.findUserByLoging", query = "select u from User u where userIdentification.userLogin = :login"),
+    @NamedQuery(name = "User.findUserByEmail", query = "select u from User u where email = :email"),
     @NamedQuery(name = "User.authenticate", query = "select u from User u where userIdentification.userLogin = :login and userIdentification.userPassword = :password"),
 })
 @Entity

@@ -104,4 +104,27 @@ public class SportCoachDaoImpl implements SportCoachDao {
         user.setAccount(account);
         account.getUsers().add(user);
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        Query query = getCurrentSession().getNamedQuery("User.findUserByEmail");
+        query.setParameter("email", email);
+        List result = query.list();
+        if (result.isEmpty() || result.size() > 1) {
+            return null;
+        }
+        return (User) result.iterator().next();
+    }
+
+    @Override
+    public Job getJobByJobIdentifier(String jobIdentifier) {
+        Query query = getCurrentSession().getNamedQuery("Job.findJobByIdentifier");
+        query.setParameter("jobIdentifier", jobIdentifier);
+        List result = query.list();
+        if (result.isEmpty() || result.size() > 1) {
+            return null;
+        }
+        return (Job) result.iterator().next();
+    }
+
 }

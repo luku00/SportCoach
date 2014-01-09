@@ -6,8 +6,12 @@ import com.sport.coach.domain.user.User;
 import com.sport.coach.error.ClientServerException;
 import com.sport.coach.mappers.JobManagerMapper;
 import com.sport.coach.repository.dao.SportCoachDao;
+import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
 import com.sport.jobmanager.common.JobType;
+import com.sport.jobmanager.common.domain.Job;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -18,6 +22,7 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     private SportCoachDao sportCoachDao;
     private JobManagerMapper jobManagerMapper;
+    private SportCoachSecurityService securityService;
 
     @Override
     public User save(User user, Integer accountId) throws ClientServerException {
@@ -34,7 +39,7 @@ public class SportCoachServiceImpl implements SportCoachService {
             throw new ClientServerException("Login error");
         }
         sportCoachDao.updateAccountWithNewUser(user, accountId);
-        createNewJob(JobType.EMAIL_NEW_SUB_USER, user);
+        createNewJob(JobType.EMAIL_NEW_SUB_USER, user, null);
     }
 
     private void createRequestorUser(User user) {
@@ -45,6 +50,10 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     public void setSportCoachDao(SportCoachDao sportCoachDao) {
         this.sportCoachDao = sportCoachDao;
+    }
+
+    public void setSecurityService(SportCoachSecurityService securityService) {
+        this.securityService = securityService;
     }
 
     public void setJobManagerMapper(JobManagerMapper jobManagerMapper) {
@@ -78,7 +87,38 @@ public class SportCoachServiceImpl implements SportCoachService {
         return storedUser;
     }
 
-    private void createNewJob(JobType jobType, User user) {
-        sportCoachDao.save(jobManagerMapper.mapToJob(jobType, user));
+    private void createNewJob(JobType jobType, User user, String jobIdentifier) {
+        sportCoachDao.save(jobManagerMapper.mapToJob(jobType, user, jobIdentifier));
+    }
+
+    @Override
+    public boolean passwordReset(String loginOrEmail) {
+        User user = null;
+        if (isEmail(loginOrEmail)) {
+            user = sportCoachDao.getUserByEmail(loginOrEmail);
+        } else {
+            user = sportCoachDao.getUser(loginOrEmail);
+        }
+        if (user != null) {
+            createNewJob(JobType.EMAIL_RESET_PASSWORD, user,
+                    securityService.getHashedString(String.valueOf(user.getUserId())));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isEmail(String loginOrEmail) {
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+        Matcher m = p.matcher(loginOrEmail);
+        return m.matches();
+    }
+
+    @Override
+    public String getUserEmail(String jobIdentifier) {
+        Job job = sportCoachDao.getJobByJobIdentifier(jobIdentifier);
+        if (job != null) {
+            return job.getUserEmail();
+        }
+        return null;
     }
 }

@@ -34,4 +34,14 @@ public class SportCoachSecurityServiceImpl implements SportCoachSecurityService 
     public String getHashedDefaultPassword() {
         return hashPassword(defaultPassword);
     }
+
+    @Override
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public String getHashedString(String string) {
+        String rawHash = encoder.encode(string);
+        // this hash might be used as path variable so there can't be some characters
+        rawHash.replaceAll("/", "");
+        rawHash.replaceAll(".", "");
+        return rawHash;
+    }
 }

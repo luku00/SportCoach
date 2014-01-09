@@ -26,6 +26,14 @@ public interface SportCoachDao {
     boolean userExist(String login);
 
     /**
+     * will check if email exists in db and return User
+     *
+     * @param email
+     * @return
+     */
+    User getUserByEmail(String email);
+
+    /**
      * Will get user
      *
      * @param login
@@ -57,6 +65,15 @@ public interface SportCoachDao {
 
     /**
      * This will save to db jobManager common object
+     * @param job
      */
     void save(Job job);
+
+    /**
+     * will get job based on identifier
+     *
+     * @param jobIdentifier
+     * @return
+     */
+    Job getJobByJobIdentifier(String jobIdentifier);
 }

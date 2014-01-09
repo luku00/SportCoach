@@ -17,5 +17,8 @@ public class ViewParams {
     public static final String NEW_ACCOUNT_USER_VIEW = "userV";
     public static final String NEW_ACCOUNT_USER_CREATED = "userCreated";
 
+    public static final String USER_PASSWORD_RESET_REQUESTED = "passwordResetRequested";
+
     public static final String LOGIN_ERROR = "loginError";
+    public static final String USER_PASSWORD_REQUEST_FAILED = "passwordResetRequestFailed";
 }
