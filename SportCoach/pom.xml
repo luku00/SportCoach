@@ -4,7 +4,7 @@
 
     <groupId>com.sport.coach</groupId>
     <artifactId>SportCoach</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>war</packaging>
 
     <name>SportCoach</name>
@@ -22,7 +22,7 @@
         <org.hibernate-version>4.2.1.Final</org.hibernate-version>
         <project.jodatime.version>2.3</project.jodatime.version>
         <project.jadira.version>3.1.0.CR1</project.jadira.version>
-        <jobManager.common.domain>1.0-SNAPSHOT</jobManager.common.domain>
+        <jobManager.common.domain>1.0</jobManager.common.domain>
     </properties>
 
     <repositories>
