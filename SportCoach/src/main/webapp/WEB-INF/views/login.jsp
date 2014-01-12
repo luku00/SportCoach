@@ -37,6 +37,9 @@
                     <button type="submit" class="btn"><spring:message code="submit" /></button>
                 </div>
             </div>
+                    <div class="control-group">
+                        <a href="/SportCoach/user/forgotPassword/"><spring:message code="forgotPassword" /></a>
+                    </div>
         </form>
     </body>
 </html>

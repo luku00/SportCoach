@@ -1,6 +1,7 @@
 package com.sport.coach.controllers;
 
 import com.sport.coach.domain.view.ViewParams;
+import com.sport.coach.error.ClientServerException;
 import com.sport.coach.service.SportCoachService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +42,21 @@ public class SportCoachUserController {
     }
 
     @RequestMapping(value = "/passwordReset/{hashCode}", method = RequestMethod.GET)
-    public ModelAndView resetPasswordLinked(@PathVariable String hashCode) {
+    public ModelAndView resetPasswordLinked(@PathVariable String hashCode) throws ClientServerException {
         ModelAndView model = new ModelAndView();
         model.setViewName("passwordChange");
-
+        if (sportCoachService.getUserEmail(hashCode) == null) {
+            throw new ClientServerException("resource not exist");
+        }
         return model;
     }
 
     @RequestMapping(value = "/passwordReset/{hashCode}", method = RequestMethod.POST)
-    public ModelAndView requestToChangePassword(@PathVariable String hashCode) {
-        return null;
+    public ModelAndView requestToChangePassword(@PathVariable String hashCode, @Valid String passwd1) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("passwordChange");
+        sportCoachService.passwordChange(passwd1, hashCode);
+        model.getModel().put(ViewParams.USER_PASSWORD_CHANGE_DONE, "passwordChangeDone");
+        return model;
     }
 }

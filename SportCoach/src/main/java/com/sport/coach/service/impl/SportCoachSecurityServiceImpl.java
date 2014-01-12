@@ -40,8 +40,8 @@ public class SportCoachSecurityServiceImpl implements SportCoachSecurityService 
     public String getHashedString(String string) {
         String rawHash = encoder.encode(string);
         // this hash might be used as path variable so there can't be some characters
-        rawHash.replaceAll("/", "");
-        rawHash.replaceAll(".", "");
+        rawHash = rawHash.replaceAll("\\/", "");
+        rawHash = rawHash.replaceAll("\\.", "");
         return rawHash;
     }
 }

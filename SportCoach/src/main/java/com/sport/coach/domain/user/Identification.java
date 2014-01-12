@@ -36,6 +36,14 @@ public class Identification {
         return userPassword;
     }
 
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
     public void secure() {
         this.userPassword = null;
     }

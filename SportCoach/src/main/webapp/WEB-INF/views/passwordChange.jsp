@@ -27,6 +27,7 @@
                     <button type="submit" class="btn"><spring:message code="submit" /></button>
                 </div>
             </div>
+            <label class="label-success"><spring:message code="${passwordChangeDone}" /></label>
         </form>
     </body>
 </html>

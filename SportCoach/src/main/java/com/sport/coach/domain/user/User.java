@@ -131,6 +131,9 @@ public class User {
         this.lastName = updatedUser.getLastName();
         this.email = updatedUser.getEmail();
         this.userAddress.updateStreetAddress((StreetAddress) updatedUser.getUserAddress());
+        if (updatedUser.getUserIdentification().getUserPassword() != null) {
+            this.userIdentification.setUserPassword(updatedUser.getUserIdentification().getUserPassword());
+        }
     }
 
     public static class Builder {

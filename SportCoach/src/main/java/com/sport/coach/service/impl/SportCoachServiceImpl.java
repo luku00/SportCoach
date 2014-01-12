@@ -8,6 +8,7 @@ import com.sport.coach.mappers.JobManagerMapper;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
+import com.sport.jobmanager.common.JobStatus;
 import com.sport.jobmanager.common.JobType;
 import com.sport.jobmanager.common.domain.Job;
 import java.util.regex.Matcher;
@@ -87,6 +88,13 @@ public class SportCoachServiceImpl implements SportCoachService {
         return storedUser;
     }
 
+    /**
+     * This will create new Job for later processing
+     *
+     * @param jobType
+     * @param user
+     * @param jobIdentifier
+     */
     private void createNewJob(JobType jobType, User user, String jobIdentifier) {
         sportCoachDao.save(jobManagerMapper.mapToJob(jobType, user, jobIdentifier));
     }
@@ -120,5 +128,17 @@ public class SportCoachServiceImpl implements SportCoachService {
             return job.getUserEmail();
         }
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void passwordChange(String newPassword, String jobIdentifier) {
+        Job job = sportCoachDao.getJobByJobIdentifier(jobIdentifier);
+        User user = sportCoachDao.getUserByEmail(job.getUserEmail());
+        user.getUserIdentification().setUserPassword(securityService.hashPassword(newPassword));
+
+        // after password change job identifier needs to be removed for security reason
+        job.setJobIdentifier(null);
+        job.setJobStatus(JobStatus.POST_COMPLETED);
     }
 }

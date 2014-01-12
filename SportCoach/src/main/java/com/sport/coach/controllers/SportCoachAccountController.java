@@ -128,10 +128,17 @@ public class SportCoachAccountController {
 
     /**
      * This will change account data
+     * @param viewUser
+     * @param passwd1
+     * @return
+     * @throws com.sport.coach.error.ClientServerException
      */
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public ModelAndView changeAccountData(@Valid UserView viewUser) throws ClientServerException {
+    public ModelAndView changeAccountData(@Valid UserView viewUser, @Valid String passwd1) throws ClientServerException {
         ModelAndView model = new ModelAndView("redirect:/account/admin");
+        if (passwd1 != null) {
+            viewUser.setPassword(sportCoachSecurityService.hashPassword(passwd1));
+        }
         User updatedUser = sportCoachService.updateUserData(viewMapper.mapToUser(viewUser), getLoggedUserName());
         userInfo = viewMapper.mapUserToUserInfo(updatedUser);
         model.addObject("userInfo", userInfo);

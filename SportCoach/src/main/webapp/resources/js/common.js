@@ -57,6 +57,7 @@ function changeAccount() {
     document.getElementById("city").disabled = false;
     document.getElementById("zip").disabled = false;
     document.getElementById("country").disabled = false;
+    document.getElementById("passwd").hidden = false;
 }
 
 function displaySubAccountForm() {

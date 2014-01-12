@@ -15,44 +15,54 @@
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:include page="layout.jsp" />
-        <form id="adminAccountForm" class="form-horizontal" action="" method="post">
+        <form id="adminAccountForm" class="form-horizontal" action="" method="post" onsubmit="return validatePasswordChange();">
             <div class="control-group">
                 <label class="control-label"><spring:message code="name" /></label>
                 <div class="controls">
                     <input type="text" name="firstName" id="firstName" value="${userData.firstName}" maxlength="30" required="true" disabled="true" title="User First name"/>
                 </div>
                 <label class="control-label"><spring:message code="surname" /></label>
+                <div class="controls">
+                    <input type="text" name="lastName" id="lastName" maxlength="50" value="${userData.lastName}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="email" /></label>
+                <div class="controls">
+                    <input type="text" name="email" id="email" maxlength="50"  value="${userData.email}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="role" /></label>
+                <div class="controls">
+                    <input type="text" name="userRole" id="userRole" maxlength="20" value="${userData.userRole}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="streetName" /></label>
+                <div class="controls">
+                    <input type="text" name="streetName" id="streetName" maxlength="50" value="${userData.streetName}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="streetNumber" /></label>
+                <div class="controls">
+                    <input type="text" name="streetNumber" id="streetNumber" maxlength="10" value="${userData.streetNumber}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="city" /></label>
+                <div class="controls">
+                    <input type="text" name="city" id="city" maxlength="20" value="${userData.city}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="zip" /></label>
+                <div class="controls">
+                    <input type="text" name="zip" id="zip" maxlength="10" value="${userData.zip}" required="true" disabled="true"/>
+                </div>
+                <label class="control-label"><spring:message code="country" /></label>
+                <div class="controls">
+                    <input type="text" name="country" id="country" maxlength="20" value="${userData.country}" required="true" disabled="true"/>
+                </div>
+                <div id="passwd" hidden="true">
+                    <label class="control-label"><spring:message code="password" /></label>
                     <div class="controls">
-                        <input type="text" name="lastName" id="lastName" maxlength="50" value="${userData.lastName}" required="true" disabled="true"/>
+                        <input type="password" name="passwd1" id="passwd1" maxlength="50" />
                     </div>
-                    <label class="control-label"><spring:message code="email" /></label>
+                    <label class="control-label"><spring:message code="password" /></label>
                     <div class="controls">
-                        <input type="text" name="email" id="email" maxlength="50"  value="${userData.email}" required="true" disabled="true"/>
+                        <input type="password" name="passwd2" id="passwd2" maxlength="50" />
                     </div>
-                    <label class="control-label"><spring:message code="role" /></label>
-                    <div class="controls">
-                        <input type="text" name="userRole" id="userRole" maxlength="20" value="${userData.userRole}" required="true" disabled="true"/>
-                    </div>
-                    <label class="control-label"><spring:message code="streetName" /></label>
-                    <div class="controls">
-                        <input type="text" name="streetName" id="streetName" maxlength="50" value="${userData.streetName}" required="true" disabled="true"/>
-                    </div>
-                    <label class="control-label"><spring:message code="streetNumber" /></label>
-                    <div class="controls">
-                        <input type="text" name="streetNumber" id="streetNumber" maxlength="10" value="${userData.streetNumber}" required="true" disabled="true"/>
-                    </div>
-                    <label class="control-label"><spring:message code="city" /></label>
-                    <div class="controls">
-                        <input type="text" name="city" id="city" maxlength="20" value="${userData.city}" required="true" disabled="true"/>
-                    </div>
-                    <label class="control-label"><spring:message code="zip" /></label>
-                    <div class="controls">
-                        <input type="text" name="zip" id="zip" maxlength="10" value="${userData.zip}" required="true" disabled="true"/>
-                    </div>
-                    <label class="control-label"><spring:message code="country" /></label>
-                    <div class="controls">
-                        <input type="text" name="country" id="country" maxlength="20" value="${userData.country}" required="true" disabled="true"/>
-                    </div>
+                </div>
             </div>
 
             <div class="control-group">
@@ -137,11 +147,11 @@
                     <label class="label-warning"><spring:message code="${loginExist}" /></label>
                 </div>
             </div>
-                <div class="control-group" hidden="true" id="subAccountButtons">
-                    <div class="controls">
-                    </label>
-                    <button type="submit" class="btn" ><spring:message code="submit" /></button>
-                </div>
+                    <div class="control-group" hidden="true" id="subAccountButtons">
+                        <div class="controls">
+                            </label>
+                            <button type="submit" class="btn" ><spring:message code="submit" /></button>
+                        </div>
             </div>
         </form>
 

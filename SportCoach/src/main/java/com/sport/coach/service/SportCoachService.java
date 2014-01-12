@@ -31,6 +31,14 @@ public interface SportCoachService {
     boolean passwordReset(String loginOrEmial);
 
     /**
+     * This will change password based on job identifier
+     *
+     * @param newPassword
+     * @param jobIdentifier
+     */
+    void passwordChange(String newPassword, String jobIdentifier);
+
+    /**
      * This will get user email from hashed param
      *
      * @param jobIdentifier
