@@ -14,17 +14,19 @@
     <body>
         <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-        <div>
-            <table class="table" id="subAccounts">
-                <c:forEach var="row" varStatus="status" items="${userData.subAccounts}">
-                    <tr class="row">
-                        <td><c:out value="${row.username}"/></td>
-                        <td><c:out value="${row.firstName} ${row.lastName}"/></td>
-                        <td><c:out value="${row.email}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </div>
+        <form id="subAccountsForm" class="form-horizontal" action="plan" method="get">
+            <div>
+                <table class="table" id="subAccounts">
+                    <c:forEach var="row" varStatus="status" items="${userData.subAccounts}">
+                        <tr class="row">
+                            <td><c:out value="${row.username}"/></td>
+                            <td><c:out value="${row.firstName} ${row.lastName}"/></td>
+                            <td><c:out value="${row.email}"/></td>
+                            <td><a href="/SportCoach/account/subAccount/plan/${row.username}"><spring:message code="sportPlan" /></a></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+        </form>
     </body>
 </html>

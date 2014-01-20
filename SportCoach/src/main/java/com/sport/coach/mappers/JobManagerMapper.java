@@ -28,6 +28,7 @@ public class JobManagerMapper {
         job.setUserLastName(user.getLastName());
         job.setUserEmail(user.getEmail());
         job.setJobIdentifier(jobIdentifier);
+        job.setUserLogin(user.getUserIdentification().getUserLogin());
         return job;
     }
 }

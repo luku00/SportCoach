@@ -20,6 +20,8 @@ public class ViewParams {
     public static final String USER_PASSWORD_RESET_REQUESTED = "passwordResetRequested";
     public static final String USER_PASSWORD_CHANGE_DONE = "passwordChangeDone";
 
+    public static final String PLAN_TYPES = "types";
+
     public static final String LOGIN_ERROR = "loginError";
     public static final String USER_PASSWORD_REQUEST_FAILED = "passwordResetRequestFailed";
 }

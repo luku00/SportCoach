@@ -1,11 +1,14 @@
 package com.sport.coach.domain.user;
 
 import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.activity.Activity;
+import com.sport.coach.domain.activity.Plan;
 import static javax.persistence.EnumType.*;
 import static javax.persistence.CascadeType.*;
 
 import com.sport.coach.domain.address.Address;
 import com.sport.coach.domain.address.StreetAddress;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -19,7 +22,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import org.joda.time.DateTime;
 
@@ -35,7 +40,7 @@ import org.joda.time.DateTime;
 })
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(name = "USER_ID")
@@ -71,6 +76,12 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Plan> plans;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Activity> activity;
 
     public User() {
     }
@@ -124,6 +135,22 @@ public class User {
 
     public DateTime getUserBirthDate() {
         return new DateTime(birthDate);
+    }
+
+    public Set<Plan> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(Set<Plan> plans) {
+        this.plans = plans;
+    }
+
+    public Set<Activity> getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Set<Activity> activity) {
+        this.activity = activity;
     }
 
     public void setNewUserData(User updatedUser) {

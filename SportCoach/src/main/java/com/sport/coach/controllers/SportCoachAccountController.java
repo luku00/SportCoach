@@ -1,5 +1,6 @@
 package com.sport.coach.controllers;
 
+import com.sport.coach.domain.activity.ValueType;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserInfo;
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.joda.time.LocalDate;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @RequestMapping("/account")
 @SessionAttributes({"userData", "userInfo"})
-public class SportCoachAccountController {
+public class SportCoachAccountController extends BaseController {
 
     private static final int DAYS_IN_MONTH = 31;
     private static final int MONTHS_IN_YEAR = 12;
@@ -64,6 +64,9 @@ public class SportCoachAccountController {
 
     /**
      * Will create new account
+     * @param viewUser
+     * @return
+     * @throws com.sport.coach.error.ClientServerException
      */
     @RequestMapping(value = "/new/save", method = RequestMethod.POST)
     public ModelAndView save(@Valid UserView viewUser) throws ClientServerException {
@@ -91,6 +94,9 @@ public class SportCoachAccountController {
 
     /**
      * Will create new user sub account under main requestor account
+     * @param viewUser
+     * @return
+     * @throws com.sport.coach.error.ClientServerException
      */
     @RequestMapping(value = "/admin/newSubAccount", method = RequestMethod.POST)
     public ModelAndView saveSubAccount(@Valid UserView viewUser) throws ClientServerException {
@@ -105,6 +111,7 @@ public class SportCoachAccountController {
 
     /**
      * Login page
+     * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -113,6 +120,8 @@ public class SportCoachAccountController {
 
     /**
      * Will load user admin page
+     * @return
+     * @throws com.sport.coach.error.ClientServerException
      */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminOwnAccount() throws ClientServerException {
@@ -145,14 +154,26 @@ public class SportCoachAccountController {
         return model;
     }
 
-    /**
-     * will load logged user from security context
-     *
-     * @return actually logged userName
-     */
-    private String getLoggedUserName() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName(); //get logged in username
+    @RequestMapping(value = "/subAccount/plan/{login}", method = RequestMethod.GET)
+    public ModelAndView getSubAccountPlan(@PathVariable String login) throws ClientServerException {
+        // only requestor is able to set new plan for users
+        if (Role.REQUESTOR != gelLoggedUserRole()) {
+            throw new ClientServerException("unauthorizated");
+        }
+        ModelAndView model = new ModelAndView("sportPlan");
+        User user = sportCoachService.getUser(login);
+        userView = viewMapper.mapToUserView(user, userView);
+        model.addObject("userData", userView);
+        model.addObject(ViewParams.PLAN_TYPES, createListOfValueTypes());
+        return model;
+    }
+
+    private List<String> createListOfValueTypes() {
+        List<String> values = new ArrayList<>();
+        for (ValueType v : ValueType.values()) {
+            values.add(v.name());
+        }
+        return values;
     }
 
     private List<String> createListOfRoles() {

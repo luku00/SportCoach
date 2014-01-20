@@ -1,7 +1,6 @@
 package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.security.Authority;
-import com.sport.coach.domain.security.AuthorityTypes;
 import com.sport.coach.domain.user.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No user found with username: " + login);
         }
         List<GrantedAuthority> authority = new ArrayList<>();
-        authority.add(new Authority(AuthorityTypes.USER.name()));
+        authority.add(new Authority(user.getRole().name()));
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserIdentification().getUserLogin(),
                 user.getUserIdentification().getUserPassword(), true, true, true, true, authority);
         return userDetails;

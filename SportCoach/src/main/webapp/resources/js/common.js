@@ -65,6 +65,10 @@ function displaySubAccountForm() {
     document.getElementById("subAccountRequestForm").hidden = false;
 }
 
+function displaySportPlanForm() {
+    document.getElementById("newSportPlan").hidden = false;
+}
+
 function validatePasswordChange() {
     var password1 = document.getElementById("passwd1");
     var password2 = document.getElementById("passwd2");
