@@ -56,6 +56,18 @@ public class Plan implements Serializable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    public Plan() {
+    }
+
+    public Plan(Date createDate, Date fromDate, Date toDate, ValueType goalType, String goalValue, User user) {
+        this.createDate = createDate;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.goalType = goalType;
+        this.goalValue = goalValue;
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -110,6 +122,14 @@ public class Plan implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

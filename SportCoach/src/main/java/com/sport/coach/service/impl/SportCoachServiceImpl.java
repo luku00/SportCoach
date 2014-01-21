@@ -1,6 +1,8 @@
 package com.sport.coach.service.impl;
 
 import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.activity.Plan;
+import com.sport.coach.domain.activity.ValueType;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.error.ClientServerException;
@@ -11,6 +13,7 @@ import com.sport.coach.service.SportCoachService;
 import com.sport.jobmanager.common.JobStatus;
 import com.sport.jobmanager.common.JobType;
 import com.sport.jobmanager.common.domain.Job;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,7 +104,7 @@ public class SportCoachServiceImpl implements SportCoachService {
 
     @Override
     public boolean passwordReset(String loginOrEmail) {
-        User user = null;
+        User user;
         if (isEmail(loginOrEmail)) {
             user = sportCoachDao.getUserByEmail(loginOrEmail);
         } else {
@@ -140,5 +143,13 @@ public class SportCoachServiceImpl implements SportCoachService {
         // after password change job identifier needs to be removed for security reason
         job.setJobIdentifier(null);
         job.setJobStatus(JobStatus.POST_COMPLETED);
+    }
+
+    @Override
+    public void createNewPlan(Date fromDate, Date toDate, String goal, String goalType, String userName) {
+        ValueType valueType = ValueType.fromString(goalType);
+        User user = sportCoachDao.getUser(userName);
+        Plan plan = new Plan(new Date(), fromDate, toDate, valueType, goal, user);
+        sportCoachDao.savePlan(plan);
     }
 }

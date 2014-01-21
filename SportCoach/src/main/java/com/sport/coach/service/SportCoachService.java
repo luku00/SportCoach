@@ -1,10 +1,8 @@
-/**
- * Copyright 2013 TeliaSonera. All rights reserved.
- */
 package com.sport.coach.service;
 
 import com.sport.coach.domain.user.User;
 import com.sport.coach.error.ClientServerException;
+import java.util.Date;
 
 /**
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
@@ -45,4 +43,15 @@ public interface SportCoachService {
      * @return
      */
     String getUserEmail(String jobIdentifier);
+
+    /**
+     * Method should create new plan for specific user
+     *
+     * @param fromDate plan start date
+     * @param toDate plat finish date
+     * @param goal goal of the plan
+     * @param goalType type of the goal
+     * @param userName user name
+     */
+    void createNewPlan(Date fromDate, Date toDate, String goal, String goalType, String userName);
 }

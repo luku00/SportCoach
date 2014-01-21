@@ -1,6 +1,7 @@
 package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.activity.Plan;
 import com.sport.coach.domain.user.User;
 import com.sport.jobmanager.common.domain.Job;
 
@@ -76,4 +77,11 @@ public interface SportCoachDao {
      * @return
      */
     Job getJobByJobIdentifier(String jobIdentifier);
+
+    /**
+     * This will save Plan entity into db
+     *
+     * @param plan
+     */
+    void savePlan(Plan plan);
 }

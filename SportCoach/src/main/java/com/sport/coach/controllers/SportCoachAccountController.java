@@ -1,6 +1,5 @@
 package com.sport.coach.controllers;
 
-import com.sport.coach.domain.activity.ValueType;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.UserInfo;
@@ -11,15 +10,17 @@ import com.sport.coach.mappers.ViewMapper;
 import com.sport.coach.service.SportCoachSecurityService;
 import com.sport.coach.service.SportCoachService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.joda.time.LocalDate;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -30,10 +31,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/account")
 @SessionAttributes({"userData", "userInfo"})
 public class SportCoachAccountController extends BaseController {
-
-    private static final int DAYS_IN_MONTH = 31;
-    private static final int MONTHS_IN_YEAR = 12;
-    private static final int YEARS = 50;
 
     @Autowired
     private UserView userView;
@@ -163,57 +160,25 @@ public class SportCoachAccountController extends BaseController {
         ModelAndView model = new ModelAndView("sportPlan");
         User user = sportCoachService.getUser(login);
         userView = viewMapper.mapToUserView(user, userView);
+        userView.setUsername(login);
         model.addObject("userData", userView);
         model.addObject(ViewParams.PLAN_TYPES, createListOfValueTypes());
         return model;
     }
 
-    private List<String> createListOfValueTypes() {
-        List<String> values = new ArrayList<>();
-        for (ValueType v : ValueType.values()) {
-            values.add(v.name());
-        }
-        return values;
-    }
-
-    private List<String> createListOfRoles() {
-        List<String> roles = new ArrayList<>();
-        for (Role r : Role.values()) {
-            roles.add(r.name());
-        }
-        return roles;
+    @RequestMapping(value = "/subAccount/plan/newSportPlan", method = RequestMethod.POST)
+    public ModelAndView postNewSubAccountPlan(@DateTimeFormat(pattern = "dd-MM-yyyy") Date fromDate,
+            @DateTimeFormat(pattern = "dd-MM-yyyy") Date toDate, String goal, String goalType,
+            @RequestParam(value = "user") String userName) {
+        ModelAndView model = new ModelAndView("sportPlan");
+        sportCoachService.createNewPlan(fromDate, toDate, goal, goalType, userName);
+        return model;
     }
 
     private void loadDefaultNewAccountParams(ModelAndView model) {
         model.getModel().put(ViewParams.NEW_ACCOUNT_DAYS, createListOfDays());
         model.getModel().put(ViewParams.NEW_ACCOUNT_MONTHS, createListOfMonths());
         model.getModel().put(ViewParams.NEW_ACCOUNT_YEARS, createListOfYears());
-    }
-
-    private List<String> createListOfDays() {
-        List<String> days = new ArrayList<>();
-        for (int i = 1; i <= DAYS_IN_MONTH; i++) {
-            days.add(String.valueOf(i));
-        }
-        return days;
-    }
-
-    private List<String> createListOfMonths() {
-        List<String> months = new ArrayList<>();
-        for (int i = 1; i <= MONTHS_IN_YEAR; i++) {
-            months.add(String.valueOf(i));
-        }
-        return months;
-    }
-
-    private List<String> createListOfYears() {
-        List<String> years = new ArrayList<>();
-        LocalDate localDate = new LocalDate();
-        int currentYear = localDate.getYear();
-        for (int i = 1; i <= YEARS; i++) {
-            years.add(String.valueOf(currentYear - i));
-        }
-        return years;
     }
 
     /**

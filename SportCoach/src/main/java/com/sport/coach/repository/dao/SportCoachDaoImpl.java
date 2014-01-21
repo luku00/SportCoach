@@ -1,6 +1,7 @@
 package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.activity.Plan;
 import com.sport.coach.domain.user.User;
 import com.sport.jobmanager.common.domain.Job;
 import java.util.List;
@@ -49,10 +50,8 @@ public class SportCoachDaoImpl implements SportCoachDao {
     public boolean userExist(String login) {
         Query query = getCurrentSession().getNamedQuery("User.findUserByLoging");
         query.setParameter("login", login);
-        if (query.list().isEmpty()) {
-            return false;
-        }
-        return true;
+
+        return !query.list().isEmpty();
     }
 
     @Override
@@ -125,6 +124,11 @@ public class SportCoachDaoImpl implements SportCoachDao {
             return null;
         }
         return (Job) result.iterator().next();
+    }
+
+    @Override
+    public void savePlan(Plan plan) {
+        getCurrentSession().save(plan);
     }
 
 }
