@@ -49,6 +49,9 @@ public class Plan implements Serializable {
     @Column(name = "GOAL_VALUE")
     private String goalValue;
 
+    @Column(name = "REWARD")
+    private Integer reward;
+
     @Column(name = "ACTIVE")
     private boolean active;
 
@@ -59,13 +62,15 @@ public class Plan implements Serializable {
     public Plan() {
     }
 
-    public Plan(Date createDate, Date fromDate, Date toDate, ValueType goalType, String goalValue, User user) {
+    public Plan(Date createDate, Date fromDate, Date toDate, ValueType goalType,
+            String goalValue, User user, Integer reward) {
         this.createDate = createDate;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.goalType = goalType;
         this.goalValue = goalValue;
         this.user = user;
+        this.reward = reward;
     }
 
     public Integer getId() {
@@ -130,6 +135,14 @@ public class Plan implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getReward() {
+        return reward;
+    }
+
+    public void setReward(Integer reward) {
+        this.reward = reward;
     }
 
 }

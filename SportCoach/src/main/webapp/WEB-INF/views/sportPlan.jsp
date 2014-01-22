@@ -26,7 +26,7 @@
         <div class="controls">
             <button type="button" class="btn-small" onclick="displaySportPlanForm()"><spring:message code="newSportPlan" /></button>
         </div>
-            <form id="newSportPlanForm" class="form-horizontal" action="newSportPlan/?user=${userData.username}" method="post">
+        <form id="newSportPlanForm" class="form-horizontal" action="newSportPlan/?user=${userData.username}" method="post">
 
         <div class="controls" hidden="true" id="newSportPlan">
             <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="fromDate" /> </label>
@@ -45,17 +45,37 @@
             </div>
 
             <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="goalType" /> </label>
-            <select id="goalType" name="goalType" style="width: 60px" >
-                <c:forEach var="item" items="${types}">
-                    <option value="${item}">${item}</option>
-                </c:forEach>
-            </select>
+            <div class="controls"><select id="goalType" name="goalType" style="width: 60px" >
+                    <c:forEach var="item" items="${types}">
+                        <option value="${item}">${item}</option>
+                    </c:forEach>
+                </select></div>
+
+            <label style="float: left;padding-right: 10px;padding-left: 10px"><spring:message code="reward" /> </label>
+            <div class="controls">
+                <input type="text" id="reward" name="reward" >
+            </div>
+
             <div class="controls">
                 </label>
                 <button type="submit" class="btn"><spring:message code="submit" /></button>
             </div>
         </div>
-            
+    </form>
+    <form id="plansForm" class="form-horizontal">
+        <div>
+            <table class="table" id="plans">
+                <c:forEach var="row" varStatus="status" items="${userData.plans}">
+                    <tr class="row">
+                        <td><c:out value="${row.fromDate}"/></td>
+                        <td><c:out value="${row.toDate}"/></td>
+                        <td><c:out value="${row.goalValue}"/></td>
+                        <td><c:out value="${row.goalType}"/></td>
+                        <td><c:out value="${row.reward}"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </form>
 </body>
 </html>

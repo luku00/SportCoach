@@ -3,19 +3,23 @@
  **************************************************************************************************/
 package com.sport.coach.mappers;
 
+import com.sport.coach.domain.activity.Plan;
 import com.sport.coach.domain.address.Address;
 import com.sport.coach.domain.address.StreetAddress;
 import com.sport.coach.domain.user.Identification;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import com.sport.coach.domain.view.PlanView;
 import com.sport.coach.domain.view.SubAccountView;
 import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.error.ClientServerException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import org.joda.time.DateTime;
@@ -82,7 +86,21 @@ public class ViewMapper {
         if (user.isRequestor() && !user.getAccount().getSubUsers().isEmpty()) {
             userView.getSubAccounts().addAll(mapToSubAccountView(user.getAccount().getSubUsers()));
         }
+        if (user.getPlans() != null) {
+            userView.getPlans().clear();
+            userView.getPlans().addAll(mapToPlansView(user.getPlans()));
+        }
         return userView;
+    }
+
+    public List<PlanView> mapToPlansView(Set<Plan> plans) {
+        List<PlanView> plansView = new ArrayList<>();
+        for (Plan p : plans) {
+            PlanView pv = new PlanView(p.getFromDate(), p.getToDate(),
+                    p.getGoalType(), p.getGoalValue(), p.getReward());
+            plansView.add(pv);
+        }
+        return plansView;
     }
 
     public Set<SubAccountView> mapToSubAccountView(Set<User> subUsers) {

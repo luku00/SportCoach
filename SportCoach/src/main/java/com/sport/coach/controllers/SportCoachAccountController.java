@@ -169,9 +169,9 @@ public class SportCoachAccountController extends BaseController {
     @RequestMapping(value = "/subAccount/plan/newSportPlan", method = RequestMethod.POST)
     public ModelAndView postNewSubAccountPlan(@DateTimeFormat(pattern = "dd-MM-yyyy") Date fromDate,
             @DateTimeFormat(pattern = "dd-MM-yyyy") Date toDate, String goal, String goalType,
-            @RequestParam(value = "user") String userName) {
-        ModelAndView model = new ModelAndView("sportPlan");
-        sportCoachService.createNewPlan(fromDate, toDate, goal, goalType, userName);
+            @RequestParam(value = "user") String userName, String reward) {
+        ModelAndView model = new ModelAndView("redirect:/account/subAccount/plan/" + userName);
+        sportCoachService.createNewPlan(fromDate, toDate, goal, goalType, userName, reward);
         return model;
     }
 

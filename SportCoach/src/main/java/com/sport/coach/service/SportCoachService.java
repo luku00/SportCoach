@@ -53,5 +53,5 @@ public interface SportCoachService {
      * @param goalType type of the goal
      * @param userName user name
      */
-    void createNewPlan(Date fromDate, Date toDate, String goal, String goalType, String userName);
+    void createNewPlan(Date fromDate, Date toDate, String goal, String goalType, String userName, String reward);
 }

@@ -1,10 +1,9 @@
-/***************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- **************************************************************************************************/
 package com.sport.coach.domain.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek 
  */
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -34,6 +33,7 @@ public class UserView implements Serializable {
     private String birthMonth;
     private String birthYear;
 
+    private List<PlanView> plans;
     private UserView subUserView;
     private Set<SubAccountView> subAccounts;
 
@@ -174,6 +174,13 @@ public class UserView implements Serializable {
 
     public void setAccountId(Integer accountId) {
         this.accountId = accountId;
+    }
+
+    public List<PlanView> getPlans() {
+        if (plans == null) {
+            this.plans = new ArrayList<>();
+        }
+        return plans;
     }
 
     public static class Builder {

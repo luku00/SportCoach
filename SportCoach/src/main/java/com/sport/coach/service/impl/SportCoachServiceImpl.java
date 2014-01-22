@@ -43,7 +43,7 @@ public class SportCoachServiceImpl implements SportCoachService {
             throw new ClientServerException("Login error");
         }
         sportCoachDao.updateAccountWithNewUser(user, accountId);
-        createNewJob(JobType.EMAIL_NEW_SUB_USER, user, null);
+        createNewJob(JobType.EMAIL_NEW_SUB_USER, user, null, null);
     }
 
     private void createRequestorUser(User user) {
@@ -98,8 +98,14 @@ public class SportCoachServiceImpl implements SportCoachService {
      * @param user
      * @param jobIdentifier
      */
-    private void createNewJob(JobType jobType, User user, String jobIdentifier) {
-        sportCoachDao.save(jobManagerMapper.mapToJob(jobType, user, jobIdentifier));
+    private void createNewJob(JobType jobType, User user, String jobIdentifier, Plan plan) {
+        Job job;
+        if (plan == null) {
+            job = jobManagerMapper.mapToJob(jobType, user, jobIdentifier);
+        } else {
+            job = jobManagerMapper.mapToJob(jobType, user, jobIdentifier, plan);
+        }
+        sportCoachDao.save(job);
     }
 
     @Override
@@ -112,7 +118,7 @@ public class SportCoachServiceImpl implements SportCoachService {
         }
         if (user != null) {
             createNewJob(JobType.EMAIL_RESET_PASSWORD, user,
-                    securityService.getHashedString(String.valueOf(user.getUserId())));
+                    securityService.getHashedString(String.valueOf(user.getUserId())), null);
             return true;
         }
         return false;
@@ -146,10 +152,12 @@ public class SportCoachServiceImpl implements SportCoachService {
     }
 
     @Override
-    public void createNewPlan(Date fromDate, Date toDate, String goal, String goalType, String userName) {
+    public void createNewPlan(Date fromDate, Date toDate, String goal, String goalType,
+            String userName, String reward) {
         ValueType valueType = ValueType.fromString(goalType);
         User user = sportCoachDao.getUser(userName);
-        Plan plan = new Plan(new Date(), fromDate, toDate, valueType, goal, user);
+        Plan plan = new Plan(new Date(), fromDate, toDate, valueType, goal, user, Integer.parseInt(reward));
         sportCoachDao.savePlan(plan);
+        createNewJob(JobType.EMAIL_NEW_PLAN, user, null, plan);
     }
 }
