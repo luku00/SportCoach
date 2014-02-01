@@ -4,12 +4,17 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
  * @author luku00
  */
+@NamedQueries({
+    @NamedQuery(name = "ActivityType.getAll", query = "select a from ActivityType a")
+})
 @Entity
 @Table(name = "ACTIVITY_TYPE")
 public class ActivityType implements Serializable {

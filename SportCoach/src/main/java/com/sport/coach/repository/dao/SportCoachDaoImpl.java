@@ -1,6 +1,8 @@
 package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.activity.Activity;
+import com.sport.coach.domain.activity.ActivityType;
 import com.sport.coach.domain.activity.Plan;
 import com.sport.coach.domain.user.User;
 import com.sport.jobmanager.common.domain.Job;
@@ -14,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 @Repository
 @Transactional
@@ -129,6 +131,29 @@ public class SportCoachDaoImpl implements SportCoachDao {
     @Override
     public void savePlan(Plan plan) {
         getCurrentSession().save(plan);
+    }
+
+    @Override
+    public void saveActivity(Activity activity) {
+        getCurrentSession().merge(activity);
+        
+    }
+
+    @Override
+    public List<Activity> getActivitiesForUser(String userName) {
+        Query query = getCurrentSession().getNamedQuery("Activity.getActivityByUser");
+        query.setParameter("login", userName);
+        List result = query.list();
+
+        return (List<Activity>) result;
+    }
+
+    @Override
+    public List<ActivityType> getActivityTypes() {
+        Query query = getCurrentSession().getNamedQuery("ActivityType.getAll");
+        List result = query.list();
+
+        return (List<ActivityType>) result;
     }
 
 }

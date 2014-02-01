@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 public class SportCoachServiceImpl implements SportCoachService {
 

@@ -1,9 +1,12 @@
 package com.sport.coach.repository.dao;
 
 import com.sport.coach.domain.account.Account;
+import com.sport.coach.domain.activity.Activity;
+import com.sport.coach.domain.activity.ActivityType;
 import com.sport.coach.domain.activity.Plan;
 import com.sport.coach.domain.user.User;
 import com.sport.jobmanager.common.domain.Job;
+import java.util.List;
 
 /**
  * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
@@ -84,4 +87,26 @@ public interface SportCoachDao {
      * @param plan
      */
     void savePlan(Plan plan);
+
+    /**
+     * This will save new activity
+     *
+     * @param activity
+     */
+    void saveActivity(Activity activity);
+
+    /**
+     * This will get all activities based on given userName
+     *
+     * @param userName
+     * @return
+     */
+    List<Activity> getActivitiesForUser(String userName);
+
+    /**
+     * This will return all activity types
+     *
+     * @return
+     */
+    List<ActivityType> getActivityTypes();
 }

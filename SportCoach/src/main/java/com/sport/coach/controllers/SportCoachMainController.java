@@ -7,12 +7,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 @Controller
 @RequestMapping("/")
 public class SportCoachMainController {
-    
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView model = new ModelAndView();

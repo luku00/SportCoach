@@ -35,6 +35,7 @@
                             <li><a href="/SportCoach/account/admin/"><spring:message code="accountAdmin" /></a></li>
                                 <c:if test="${pageContext.request.remoteUser != null}">
                                 <li><a href="<c:url value="/logout" />"><spring:message code="logout" /></a></li>
+                                <li><a href="<c:url value="/activity/all" />"><spring:message code="activity" /></a></li>
                                 <li>
                                     <c:out value="${pageContext.request.remoteUser}"/>
                                 </li>

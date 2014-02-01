@@ -6,11 +6,11 @@ import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import static javax.persistence.EnumType.STRING;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,6 +19,9 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author luku00
  */
+@NamedQueries({
+    @NamedQuery(name = "Activity.getActivityByUser", query = "select a from Activity a where user.userIdentification.userLogin = :login")
+})
 @Entity
 @Table(name = "ACTIVITY")
 public class Activity implements Serializable {
@@ -36,11 +39,10 @@ public class Activity implements Serializable {
     private Timestamp end;
 
     @Column(name = "DURATION")
-    private Timestamp duration;
+    private Long duration;
 
-    @Enumerated(STRING)
     @Column(name = "ACTIVITY_TYPE")
-    private ValueType type;
+    private String type;
 
     @Column(name = "DISTANCE")
     private String distance;
@@ -52,8 +54,8 @@ public class Activity implements Serializable {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @Column(name = "RAW_DATA", unique = false, nullable = false, length = 100000)
-    private byte[] data;
+    //@Column(name = "RAW_DATA", unique = false, nullable = false, length = 100000)
+    //private byte[] data;
 
     public Integer getId() {
         return id;
@@ -79,19 +81,19 @@ public class Activity implements Serializable {
         this.end = end;
     }
 
-    public Timestamp getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
-    public void setDuration(Timestamp duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
     }
 
-    public ValueType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(ValueType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -119,12 +121,54 @@ public class Activity implements Serializable {
         this.user = user;
     }
 
-    public byte[] getData() {
-        return data;
-    }
+//    public byte[] getData() {
+//        return data;
+//    }
+//
+//    public void setData(byte[] data) {
+//        this.data = data;
+//    }
 
-    public void setData(byte[] data) {
-        this.data = data;
-    }
+    public static class Builder {
 
+        private final Activity activity;
+
+        public Builder() {
+            this.activity = new Activity();
+        }
+
+        public Activity build() {
+            return this.activity;
+        }
+
+        public Builder withStart(Timestamp start) {
+            activity.start = start;
+            return this;
+        }
+
+        public Builder withEnd(Timestamp end) {
+            activity.end = end;
+            return this;
+        }
+
+        public Builder withDuration(Long duration) {
+            activity.duration = duration;
+            return this;
+        }
+
+        public Builder withValueType(String valueType) {
+            activity.type = valueType;
+            return this;
+        }
+
+        public Builder withDistance(String distance) {
+            activity.distance = distance;
+            return this;
+        }
+
+        public Builder withKcal(String kcal) {
+            activity.kcal = kcal;
+            return this;
+        }
+    }
 }

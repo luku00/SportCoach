@@ -73,5 +73,8 @@
 
     <context:component-scan base-package="com.sport.coach" />
 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+    
     <import resource="classpath:spring/service.xml" />
 </beans>
