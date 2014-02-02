@@ -25,4 +25,22 @@ public class ConvertionUtil {
         strDouble = strDouble.substring(0, strDouble.indexOf("."));
         return Long.parseLong(strDouble);
     }
+
+    public static String stringFromTimeStamp(Timestamp ts) {
+        return new SimpleDateFormat("MM/dd/yyyy").format(ts);
+    }
+
+    public static String convertSecondsToTimeString(Long sec) {
+        long hours = sec / 3600;
+        long minutes = (sec % 3600) / 60;
+        long secs = sec % 60;
+        return hours + ":" + minutes + ":" + secs;
+    }
+
+    public static String convertStrMetersToStrKm(String meters) {
+        double m = Double.parseDouble(meters);
+        double rounded = (double) Math.round(m);
+        return String.valueOf(rounded / 1000) + " Km";
+
+    }
 }

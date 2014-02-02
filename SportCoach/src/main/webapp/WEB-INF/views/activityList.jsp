@@ -17,9 +17,22 @@
 
         <div>
             <table class="table" id="activity">
+                <tr class="row">
+                    <th><spring:message code="activity_Id" /></th>
+                    <th><spring:message code="activity_Sport" /></th>
+                    <th><spring:message code="activity_Started" /></th>
+                    <th><spring:message code="activity_Duration" /></th>
+                    <th><spring:message code="activity_Distance" /></th>
+                    <th><spring:message code="activity_KCAL" /></th>
+                </tr>
                 <c:forEach var="row" varStatus="status" items="${activities}">
                     <tr class="row">
-                        <td><c:out value="${row.username}"/></td>
+                        <td><c:out value="${row.id}"/></td>
+                        <td><c:out value="${row.type}"/></td>
+                        <td><c:out value="${row.start}"/></td>
+                        <td><c:out value="${row.duration}"/></td>
+                        <td><c:out value="${row.distance}"/></td>
+                        <td><c:out value="${row.kcal}"/></td>
                     </tr>
                 </c:forEach>
             </table>

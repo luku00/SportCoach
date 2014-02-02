@@ -1,11 +1,8 @@
-/***************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- **************************************************************************************************/
 package com.sport.coach.error;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 public class ClientServerException extends Exception {
 

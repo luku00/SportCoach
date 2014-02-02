@@ -17,6 +17,7 @@ public class XmlMapper {
                 .withDuration(ConvertionUtil.parseStringDoubleToLong(xml.getTotalTimeInSec()))
                 .withDistance(xml.getDistanceInMeters())
                 .withKcal(xml.getKcal())
+                .withImportId(xml.getOriginId())
                 .build();
     }
 }

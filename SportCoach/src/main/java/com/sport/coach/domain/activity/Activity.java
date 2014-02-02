@@ -20,7 +20,8 @@ import org.hibernate.annotations.GenericGenerator;
  * @author luku00
  */
 @NamedQueries({
-    @NamedQuery(name = "Activity.getActivityByUser", query = "select a from Activity a where user.userIdentification.userLogin = :login")
+    @NamedQuery(name = "Activity.getActivityByUser", query = "select a from Activity a where user.userIdentification.userLogin = :login"),
+    @NamedQuery(name = "Activity.importAlreadyExist", query = "select a from Activity a where importId = :importId")
 })
 @Entity
 @Table(name = "ACTIVITY")
@@ -31,6 +32,9 @@ public class Activity implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Integer id;
+
+    @Column(name = "IMPORT_ID")
+    private String importId;
 
     @Column(name = "START_A")
     private Timestamp start;
@@ -63,6 +67,14 @@ public class Activity implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getImportId() {
+        return importId;
+    }
+
+    public void setImportId(String importId) {
+        this.importId = importId;
     }
 
     public Timestamp getStart() {
@@ -168,6 +180,11 @@ public class Activity implements Serializable {
 
         public Builder withKcal(String kcal) {
             activity.kcal = kcal;
+            return this;
+        }
+
+        public Builder withImportId(String importId) {
+            activity.importId = importId;
             return this;
         }
     }

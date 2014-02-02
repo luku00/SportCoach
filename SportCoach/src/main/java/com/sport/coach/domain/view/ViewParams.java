@@ -23,6 +23,7 @@ public class ViewParams {
     public static final String PLAN_TYPES = "types";
 
     public static final String ACTIVITY_TYPES = "activityTypes";
+    public static final String ACTIVITIES = "activities";
 
     public static final String LOGIN_ERROR = "loginError";
     public static final String USER_PASSWORD_REQUEST_FAILED = "passwordResetRequestFailed";

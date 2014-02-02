@@ -4,6 +4,8 @@ import com.sport.coach.domain.activity.Activity;
 import com.sport.coach.domain.user.User;
 import com.sport.coach.domain.view.FileUpload;
 import com.sport.coach.domain.xml.ActivityXml;
+import com.sport.coach.error.ClientServerException;
+import com.sport.coach.error.ErrorTypes;
 import com.sport.coach.mappers.XmlMapper;
 import com.sport.coach.repository.dao.SportCoachDao;
 import com.sport.coach.service.FileUploadService;
@@ -32,14 +34,21 @@ public class FileUploadServiceImpl implements FileUploadService {
     private XmlMapper xmlMapper;
 
     @Override
-    public void createActivityFromXmlFile(FileUpload uploadedFile, User user, String activityType) throws ParseException {
+    public void createActivityFromXmlFile(FileUpload uploadedFile, User user, String activityType) throws ParseException, ClientServerException {
         MultipartFile file = uploadedFile.getFile();
         String transformedXml = transformInputFile(file, "importActivity.xsl");
         ActivityXml activityXml = (ActivityXml) unmarshallXml(transformedXml, ActivityXml.class);
+        checkIfFileHasNotBeenImported(activityXml.getOriginId());
         Activity activity = xmlMapper.mapActivityFromActivityXml(activityXml);
         activity.setUser(user);
         activity.setType(activityType);
         sportCoachDao.saveActivity(activity);
+    }
+
+    private void checkIfFileHasNotBeenImported(String uniqueId) throws ClientServerException {
+        if (sportCoachDao.importActivityExist(uniqueId)) {
+            throw new ClientServerException(ErrorTypes.FILE_ALREADY_IMPORTED.name());
+        }
     }
 
     private Object unmarshallXml(String xml, Class cl) {

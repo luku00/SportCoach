@@ -109,4 +109,12 @@ public interface SportCoachDao {
      * @return
      */
     List<ActivityType> getActivityTypes();
+
+    /**
+     * This will check if imported activity has been already imported
+     *
+     * @param importId
+     * @return
+     */
+    boolean importActivityExist(String importId);
 }

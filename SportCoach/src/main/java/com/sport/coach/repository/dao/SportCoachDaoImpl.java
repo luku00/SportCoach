@@ -156,4 +156,15 @@ public class SportCoachDaoImpl implements SportCoachDao {
         return (List<ActivityType>) result;
     }
 
+    @Override
+    public boolean importActivityExist(String importId) {
+        Query query = getCurrentSession().getNamedQuery("Activity.importAlreadyExist");
+        query.setParameter("importId", importId);
+        Activity activity = (Activity) query.uniqueResult();
+        if (activity != null) {
+            return true;
+        }
+        return false;
+    }
+
 }

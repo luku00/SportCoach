@@ -1,19 +1,19 @@
-/***************************************************************************************************
- * Copyright 2013 TeliaSonera. All rights reserved.
- **************************************************************************************************/
 package com.sport.coach.mappers;
 
+import com.sport.coach.domain.activity.Activity;
 import com.sport.coach.domain.activity.Plan;
 import com.sport.coach.domain.address.Address;
 import com.sport.coach.domain.address.StreetAddress;
 import com.sport.coach.domain.user.Identification;
 import com.sport.coach.domain.user.Role;
 import com.sport.coach.domain.user.User;
+import com.sport.coach.domain.view.ActivityView;
 import com.sport.coach.domain.view.PlanView;
 import com.sport.coach.domain.view.SubAccountView;
 import com.sport.coach.domain.view.UserInfo;
 import com.sport.coach.domain.view.UserView;
 import com.sport.coach.error.ClientServerException;
+import com.sport.coach.utils.ConvertionUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,9 +28,28 @@ import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
- * @author Lukas Kubicek <lukas.kubicek@netcom-gsm.com>
+ * @author Lukas Kubicek
  */
 public class ViewMapper {
+
+    public List<ActivityView> mapToActivityViewList(List<Activity> activities) {
+        List<ActivityView> actViewList = new ArrayList<>();
+        for (Activity act : activities) {
+            actViewList.add(mapToActivityView(act));
+        }
+        return actViewList;
+    }
+
+    public ActivityView mapToActivityView(Activity activity) {
+        ActivityView actView = new ActivityView();
+        actView.setId(String.valueOf(activity.getId()));
+        actView.setDistance(ConvertionUtil.convertStrMetersToStrKm(activity.getDistance()));
+        actView.setDuration(ConvertionUtil.convertSecondsToTimeString(activity.getDuration()));
+        actView.setKcal(activity.getKcal());
+        actView.setStart(ConvertionUtil.stringFromTimeStamp(activity.getStart()));
+        actView.setType(activity.getType());
+        return actView;
+    }
 
     public UserInfo mapUserToUserInfo(User user) {
         return new UserInfo.Builder()

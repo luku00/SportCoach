@@ -31,6 +31,6 @@
             </div>
         </form>
                 <!-- list of sub accounts  -->
-                <%--<jsp:include page="activityList.jsp" />--%>
+                <jsp:include page="activityList.jsp" />
     </body>
 </html>
