@@ -61,4 +61,4 @@ public class ActivityXml {
         this.kcal = kcal;
     }
 
-}
+    }

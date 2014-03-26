@@ -32,11 +32,12 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     private SportCoachDao sportCoachDao;
     private XmlMapper xmlMapper;
+    private String importTemplate;
 
     @Override
     public void createActivityFromXmlFile(FileUpload uploadedFile, User user, String activityType) throws ParseException, ClientServerException {
         MultipartFile file = uploadedFile.getFile();
-        String transformedXml = transformInputFile(file, "importActivity.xsl");
+        String transformedXml = transformInputFile(file, importTemplate);
         ActivityXml activityXml = (ActivityXml) unmarshallXml(transformedXml, ActivityXml.class);
         checkIfFileHasNotBeenImported(activityXml.getOriginId());
         Activity activity = xmlMapper.mapActivityFromActivityXml(activityXml);
@@ -91,6 +92,10 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     public void setXmlMapper(XmlMapper xmlMapper) {
         this.xmlMapper = xmlMapper;
+    }
+
+    public void setImportTemplate(String importTemplate) {
+        this.importTemplate = importTemplate;
     }
 
 }

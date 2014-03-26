@@ -41,6 +41,7 @@
     <bean id="fileUploadService" class="com.sport.coach.service.impl.FileUploadServiceImpl">
         <property name="sportCoachDao" ref="sportCoachDao" />
         <property name="xmlMapper" ref="xmlMapper" />
+        <property name="importTemplate" value="${importTemplate}" />
     </bean>
 
     <bean id="activityService" class="com.sport.coach.service.impl.SportCoachActivityServiceImpl">
